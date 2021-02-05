@@ -24,3 +24,36 @@
  That's why I decided to do this app, among other things, to allow the user to set up pre-made timers and use them to 
  make it *easier* and *simpler* to make use of this technique.
  
+## User Stories
+User stories are a way to describe how someone can use this application. These will also work as a task list of things 
+to be implemented, all features not added yet will be displayed in *italics*
+
+##### Adding basic information
+1. As a user, I want to add a focus session to my sessions list
+
+2. As a user, I want to add a focus timer to my focus session
+3. As a user, I want to add a short break timer to my focus session
+4. As a user, I want to add a long break timer to my focus session
+5. As a user, I want to add the number of cycles for this session (a total of 4 focus times and their respective breaks)
+
+##### Removing and editing current information 
+6. As a user, I want to remove a focus session from my sessions list
+
+7. As a user, I want to edit a focus session from my sessions list
+    1. As a user, I want to edit a focus timer from my focus session
+    
+    2. As a user, I want to edit a short break timer from my focus session 
+    3. As a user, I want to edit a long break timer from my focus session
+    4. As a user, I want to edit the number of cycles from this session (a total of 4 focus times and their respective 
+    breaks)
+    
+###### User interface
+8. As a user, I want to see my sessions list with the basic information of every focus session
+
+9. As a user, I want to start a focus session
+10. As a user, I want to pause a focus session
+11. As a user, I want to stop a focus session
+13. As a user, I want to interact with the program through the console
+
+###### Main functionalities
+12. As a user, I want to be able to see the timer running
