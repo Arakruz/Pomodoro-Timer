@@ -36,13 +36,13 @@ public class FocusSession {
     // MODIFY: FocusSession
     // EFFECTS: changes the value of shortBreak, longBreak or focusTimer to time based on which timerToChange string was
     // use as an input, "short", "long", "focus" respectively
-    public void intSetter(String timerToChange, int time) {
-        //stub
+    public FocusSession intSetter(String timerToChange, int time, FocusSession currentSession) {
+        return currentSession; //stub
     }
 
     // MODIFY: FocusSession
     // EFFECTS: changes the value of sessionName to name
-    public void nameSetter(String name) {
-        //stub
+    public FocusSession nameSetter(String name, FocusSession currentSession) {
+        return currentSession; //stub
     }
 }

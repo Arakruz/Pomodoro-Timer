@@ -24,6 +24,8 @@
  That's why I decided to do this app, among other things, to allow the user to set up pre-made timers and use them to 
  make it *easier* and *simpler* to make use of this technique.
  
+ ---
+ 
 ## User Stories
 User stories are a way to describe how someone can use this application. These will also work as a task list of things 
 to be implemented, all features already implemented will be displayed in *italics*
