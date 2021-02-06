@@ -2,12 +2,10 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FocusSessionTest {
     private FocusSession testSession;
-    private FocusSession expectedTestSession;
 
     @BeforeEach
     void setUp() {
@@ -15,39 +13,39 @@ class FocusSessionTest {
     }
 
     @Test
-    void intSetterFocusTest(){
-        // sets up the expected session value with all values the same as testSession but sessionFocus
-        expectedTestSession = new FocusSession("test", 45,5, 10);
+    void testConstructor() {
+        assertEquals("test", testSession.getSessionName());
+        assertEquals(30, testSession.getFocusTimer());
+        assertEquals(5, testSession.getShortBreak());
+        assertEquals(10, testSession.getLongBreak());
+    }
 
+    @Test
+    void intSetterFocusTest(){
         // checks if the intSetter is properly working with the focus part of the function
-        assertEquals(expectedTestSession, testSession.intSetter("focus", 45, testSession));
+        testSession.intSetter("focus", 45);
+        assertEquals(45, testSession.getFocusTimer());
     }
 
     @Test
     void intSetterShortTest(){
-        // sets up the expected session value with all values the same as testSession but sessionShort
-        expectedTestSession = new FocusSession("test", 30,10, 10);
-
         // checks if the intSetter is properly working with the short part of the function
-        assertEquals(expectedTestSession, testSession.intSetter("short", 10, testSession));
+        testSession.intSetter("short", 10);
+        assertEquals(10, testSession.getShortBreak());
     }
 
     @Test
     void intSetterLongTest(){
-        // sets up the expected session value with all values the same as testSession but sessionLong
-        expectedTestSession = new FocusSession("test", 30,5, 20);
-
         // checks if the intSetter is properly working with the long part of the function
-        assertEquals(expectedTestSession, testSession.intSetter("long", 20, testSession));
+        testSession.intSetter("long", 20);
+        assertEquals(20, testSession.getLongBreak());
     }
 
     @Test
     void nameSetterTest(){
-        // sets up the expected session value with all values the same as testSession but sessionLong
-        expectedTestSession = new FocusSession("worked!", 30,5, 10);
-
         // checks if the intSetter is properly working with the long part of the function
-        assertEquals(expectedTestSession, testSession.nameSetter("worked!", testSession));
+        testSession.nameSetter("worked!");
+        assertEquals("worked!", testSession.getSessionName());
     }
 
 
