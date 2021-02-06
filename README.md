@@ -24,6 +24,8 @@
  That's why I decided to do this app, among other things, to allow the user to set up pre-made timers and use them to 
  make it *easier* and *simpler* to make use of this technique.
  
+ ---
+ 
 ## User Stories
 User stories are a way to describe how someone can use this application. These will also work as a task list of things 
 to be implemented, all features already implemented will be displayed in *italics*
@@ -49,7 +51,7 @@ breaks).
     breaks).
     
 ###### User interface
-8. As a user, I want to see my sessions list with the basic information of every focus session.
+8. As a user, I want to see my sessions list with the basic information of some focus sessions.
 
 13. As a user, I want to interact with the program through the console.
 14. as a user, I want to select a focus session.
