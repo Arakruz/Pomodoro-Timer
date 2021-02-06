@@ -7,7 +7,7 @@ public class TimerApp {
     private Scanner input;
     private SessionsList sessionsList;
 
-    // EFFECTS: Runt the application
+    // EFFECTS: Run the application
     public TimerApp() {
         runApp();
     }
@@ -68,7 +68,7 @@ public class TimerApp {
         switch (userInput) {
             // input coming from the welcoming screen, either adding, selecting, going back, forward or quitting
             case "add":
-                addSessionScreen();
+                addSession();
                 break;
 
             case "select":
@@ -91,7 +91,7 @@ public class TimerApp {
 
     // MODIFIES: SessionList
     // EFFECTS: creates a new session in SessionList based on the users inputs
-    private void addSessionScreen() {
+    private void addSession() {
         //TODO addSessionScreen
     }
 
