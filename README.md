@@ -51,7 +51,7 @@ breaks).
     breaks).
     
 ###### User interface
-8. As a user, I want to see my sessions list with the basic information of every focus session.
+8. As a user, I want to see my sessions list with the basic information of some focus sessions.
 
 13. As a user, I want to interact with the program through the console.
 14. as a user, I want to select a focus session.
