@@ -1,22 +1,26 @@
 package model;
 
+import javax.swing.*;
+
 // Represents a Focus Session having a duration for a Short break, Long break, Focus, the number of cycles and name of
 // the session
-@SuppressWarnings("checkstyle:RightCurly")
 public class FocusSession {
-    private String name;    //name of this session
-    private int focusTimer;      //Focus time in minutes
-    private int shortBreak; // Short break time in minutes
-    private int longBreak;  // Long break time in minutes
+    private String name;         // name of this seconds
+    private int focusSession;    // Focus time in seconds
+    private int shortBreak;      // Short break time in seconds
+    private int longBreak;       // Long break time in seconds
+    private int numberOfFocus;   // Keeps track of how many focus sessions have been done
+    // Timer timer;                 // he timer that controls the countdown
 
     // REQUIRES: sessionShort, sessionLong and sessionFocus have to be greater than 0
     // EFFECTS: name of session is set as sessionName; sessionShort, sessionLong and sessionFocus are positive integers
     // and set to shortBreak, longBreak and focusTimer, respectively.
-    public FocusSession(String sessionName,int sessionFocus, int sessionShort,int sessionLong) {
+    public FocusSession(String sessionName, int sessionFocus, int sessionShort, int sessionLong) {
         name = sessionName;
-        focusTimer = sessionFocus;
+        focusSession = sessionFocus;
         shortBreak = sessionShort;
         longBreak = sessionLong;
+        numberOfFocus = 0;
     }
 
     public int getShortBreak() {
@@ -27,8 +31,8 @@ public class FocusSession {
         return longBreak;
     }
 
-    public int getFocusTimer() {
-        return focusTimer;
+    public int getFocusSession() {
+        return focusSession;
     }
 
     public String getSessionName() {
@@ -42,7 +46,7 @@ public class FocusSession {
     public void intSetter(String timerToChange, int time) {
         switch (timerToChange) {
             case "focus":
-                this.focusTimer = time;
+                this.focusSession = time;
                 break;
             case "short":
                 this.shortBreak = time;
@@ -58,4 +62,46 @@ public class FocusSession {
     public void nameSetter(String newName) {
         this.name = newName;
     }
+
+
+    // Need to look into how to make a timer properly
+//    // MODIFY: this
+//    // EFFECTS: prints the timer on the console with what part of the session it's in (time currently in seconds)
+//    public void runSession(String currentSection) {
+//        switch (currentSection) {
+//            case "focus":
+//                runFocus();
+//                break;
+//            case "break":
+//                for (int i = shortBreak; i > 0; i--) {
+//                    System.out.println("\nShort Break " + i);
+//                }
+//                System.out.println("\nInput focus to start your focus session!");
+//                break;
+//            case "rest":
+//                for (int i = longBreak; i > 0; i--) {
+//                    System.out.println("\nLong Break " + i);
+//                }
+//                System.out.println("\nInput focus to start your focus session!");
+//                break;
+//            default:
+//                System.out.println("\nInvalid input");
+//        }
+//    }
+//
+//    public void runFocus() {
+//        if (numberOfFocus < 4) {
+//            for (int i = focusSession; i > 0; i--) {
+//                System.out.println("\nFocus Session " + i);
+//            }
+//            numberOfFocus++;
+//            System.out.println("\nInput break to start your break!");
+//        } else {
+//            for (int i = focusSession; i > 0; i--) {
+//                System.out.println("\nFocus Session " + i);
+//            }
+//            numberOfFocus = 0;
+//            System.out.println("\nInput rest to start your long break!");
+//        }
+//    }
 }
