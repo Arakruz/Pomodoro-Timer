@@ -1,15 +1,13 @@
 package ui;
 
 import model.FocusSession;
-
-import java.util.ArrayList;
-import java.util.List;
+import model.SessionList;
 import java.util.Scanner;
 
 // The object that runs the app, reacting to the user input, controlling the list of FocusSessions and printing the ui
 public class TimerApp {
     private Scanner input;
-    private List<FocusSession> sessionsList;
+    private SessionList sessionsList;
 
     // EFFECTS: Run the application
     public TimerApp() {
@@ -42,7 +40,7 @@ public class TimerApp {
     // EFFECTS: initializes the SessionList and the input
     private void initializeSessionList() {
         input = new Scanner(System.in);
-        sessionsList = new ArrayList<>();
+        sessionsList = new SessionList();
     }
 
     // MODIFIES: this
@@ -103,7 +101,7 @@ public class TimerApp {
         sessionOutput();
         System.out.println("\ninset the name of the section to be selected or back to go to the previous screen");
         userInput = input.next();
-        sessionSelected = getSessionBasedOnName(userInput, sessionsList);
+        sessionSelected = sessionsList.getSessionBasedOnName(userInput);
 
         if (userInput.equals("back")) {
             chooseScreen("null", "welcome");
@@ -137,7 +135,7 @@ public class TimerApp {
         switch (userInput) {
             // input coming from the welcoming screen, either adding, selecting, going back, forward or quitting
             case "delete":
-                sessionsList.remove(selectedSession);
+                sessionsList.removeSession(selectedSession);
                 System.out.println("\nSession deleted!");
                 break;
 
@@ -183,8 +181,7 @@ public class TimerApp {
         longBreak = Integer.parseInt(sessionInfoInput);
 
         // Constructs the new FocusSession and adds it to the list
-        FocusSession newFocusSession = new FocusSession(name, focus, shortBreak, longBreak);
-        sessionsList.add(newFocusSession);
+        sessionsList.addSession(name, focus, shortBreak, longBreak);
     }
 
     // RESTRAIN: SessionList must have at least one item
@@ -225,29 +222,29 @@ public class TimerApp {
 //        System.out.println("\nGood Job!");
     }
 
-    // MODIFIES: This
-    // EFFECTS: returns the FocusSession object with given name on the list or null if no object exists with that name
-    public FocusSession getSessionBasedOnName(String name, List<FocusSession> sessionsList) {
-        for (FocusSession session : sessionsList) {
-            if (session.getSessionName().equals(name)) {
-                return session;
-            }
-        }
-        return null;
-    }
-
     // MODIFIES: this
     // EFFECTS: creates the system output of all sessions on the list with their respective information
     private void sessionOutput() {
-        for (FocusSession session : sessionsList) {
-            String name = session.getSessionName();
-            int focus = session.getFocusSession();
-            int shorBreak = session.getShortBreak();
-            int longBreak = session.getLongBreak();
+        int listSize = sessionsList.getSessionSize();
+        FocusSession currentSession;
+        String shortText = " seconds  Short Break: ";
+        String breakText = " seconds  Long Break: ";
 
-            System.out.println("\n " + name);
-            System.out.println("\tFocus time: " + focus + " Short Break: " + shorBreak + " Long Break: " + longBreak);
+        if (listSize != 0) {
+            int i = 0;
+            while (i < listSize) {
+                currentSession = sessionsList.getSession(i);
+                String name = currentSession.getSessionName();
+                int focus = currentSession.getFocusSession();
+                int shortBreak = currentSession.getShortBreak();
+                int rest = currentSession.getLongBreak();
+
+                System.out.println("\n " + name);
+                System.out.println("\tFocus time: " + focus + shortText + shortBreak + breakText + rest + " seconds");
+                i++;
+            }
+        } else {
+            System.out.println("\n No sessions created yet");
         }
-
     }
 }
