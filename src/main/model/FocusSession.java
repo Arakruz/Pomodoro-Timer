@@ -10,7 +10,7 @@ public class FocusSession {
     private int shortBreak;      // Short break time in seconds
     private int longBreak;       // Long break time in seconds
     private int numberOfFocus;   // Keeps track of how many focus sessions have been done
-    // Timer timer;                 // he timer that controls the countdown
+    // Timer timer;                // he timer that controls the countdown
 
     // REQUIRES: sessionShort, sessionLong and sessionFocus have to be greater than 0
     // EFFECTS: name of session is set as sessionName; sessionShort, sessionLong and sessionFocus are positive integers
@@ -40,24 +40,24 @@ public class FocusSession {
     }
 
     // REQUIRES: timerToChange has to be either one of "short","long" or "focus". Int has to be greater than 0
-    // MODIFY: This
+    // MODIFIES: This
     // EFFECTS: changes the value of shortBreak, longBreak or focusTimer to time based on which timerToChange string was
-    // use as an input, "short", "long", "focus" respectively
+    // use as an input, "break", "rest", "focus" respectively
     public void intSetter(String timerToChange, int time) {
         switch (timerToChange) {
             case "focus":
                 this.focusSession = time;
                 break;
-            case "short":
+            case "break":
                 this.shortBreak = time;
                 break;
-            case "long":
+            case "rest":
                 this.longBreak = time;
                 break;
         }
     }
 
-    // MODIFY: This
+    // MODIFIES: This
     // EFFECTS: changes the value of sessionName to name
     public void nameSetter(String newName) {
         this.name = newName;
@@ -65,7 +65,7 @@ public class FocusSession {
 
 
     // Need to look into how to make a timer properly
-//    // MODIFY: this
+//    // MODIFIES: this
 //    // EFFECTS: prints the timer on the console with what part of the session it's in (time currently in seconds)
 //    public void runSession(String currentSection) {
 //        switch (currentSection) {
