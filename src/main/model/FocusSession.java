@@ -38,16 +38,12 @@ public class FocusSession {
     // EFFECTS: changes the value of shortBreak, rest or focus to time based on which timerToChange string wasm use as
     // an input, "break", "rest", "focus" respectively
     public void intSetter(String timerToChange, int time) {
-        switch (timerToChange) {
-            case "focus":
-                this.focus = time;
-                break;
-            case "break":
-                this.shortBreak = time;
-                break;
-            case "rest":
-                this.rest = time;
-                break;
+        if (timerToChange.equals("focus")) {
+            this.focus = time;
+        } else if (timerToChange.equals("break")) {
+            this.shortBreak = time;
+        } else {
+            this.rest = time;
         }
     }
 
