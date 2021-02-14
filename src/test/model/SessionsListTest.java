@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class SessionsListTest {
     private SessionsList testSessionsList;
@@ -64,5 +65,12 @@ public class SessionsListTest {
 
         sessionToFind = testSessionsList.getSessionBasedOnName("Daniel");
         assertEquals("Daniel", sessionToFind.getSessionName());
+    }
+
+    @Test
+    void testGetSessionBasedOnNameReturnsNull() {
+        testSessionsList.addSession("test", 30, 5, 10);
+
+        assertNull(testSessionsList.getSessionBasedOnName("Daniel"));
     }
 }
