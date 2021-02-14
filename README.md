@@ -6,18 +6,19 @@
  the *Pomodoro technique*. Pomodoro technique is a method of time management where you break down your work, study, or 
  focus time into:
 
-- **Focus time**
-   - The time when you focus on the task at hand, originally 25 minutes, but as you get more used to the method, this time
-   can be significantly increased
+- **Focus Time**
+   - The time when you focus on the task at hand, originally 25 minutes, but as you get more used to the method, this 
+   time can be significantly increased
    
-- **Short Break**
+- **Break Time**
    -  Between every focus time, there should be a break. In this case, it's a shorter break that helps to *assimilate 
     information* and give your brain a little rest. Originally done with 5 minutes but can vary wildly depending on your 
     focus time and how tiring you want to make your focus session.
     
-- **Long Break**
-    - After 4 focus times (or what I'm calling a cycle), your brain starts to lose performance and needs a long break,
-    and that's what this is for! Originally 10 minutes but similarly to the short break can vary wildly. 
+- **Rest Time**
+    - After 4 focus times (or what I'm calling a cycle), your brain starts to lose performance and needs a longer 
+    resting period, and that's what this is for! Originally 10 minutes but similarly to the short break can vary wildly.
+     
 
  I was already using this technique for quite a while and saw an impressive improvement in my study sessions. *However*, 
  I'm quite disappointed with the current apps in the market, always missing one or more features that I find essential. 
@@ -30,8 +31,10 @@
 User stories are a way to describe how someone can use this application. These will also work as a task list of things 
 to be implemented.
 
-##### Adding basic information
-- [X] As a user, I want to add a focus session to my sessions list.
+#### Changing basic information
+
+##### Adding information
+- [X] As a user, I want to add a session to my sessions list.
 
 - [X] As a user, I want to add a focus timer to my focus session.
 - [X] As a user, I want to add a short break timer to my focus session.
@@ -42,26 +45,27 @@ breaks).
 ##### Removing and editing current information 
 - [X] As a user, I want to remove a focus session from my sessions list.
 
-- [ ] As a user, I want to edit a focus session from my sessions list.
-    - [ ] As a user, I want to edit a focus timer from my focus session.
+- [X] As a user, I want to edit a focus session from my sessions list.
+    - [X] As a user, I want to edit a focus timer from my focus session.
     
-    - [ ] As a user, I want to edit a short break timer from my focus session.
-    - [ ] As a user, I want to edit a long break timer from my focus session.
+    - [X] As a user, I want to edit a short break timer from my focus session.
+    - [X] As a user, I want to edit a long break timer from my focus session.
     - [ ] As a user, I want to edit the number of cycles from this session (a total of 4 focus timers and their respective 
     breaks).
     
-###### User interface
-- [X] As a user, I want to see my sessions list with the basic information of some focus sessions.
+##### User interface
+- [X] As a user, I want to see my sessions list with the timers and names of my sessions.
 
-- [X] As a user, I want to interact with the program through the console.
+- [X] As a user, I want to interact with the program through the console, changing screens, setting names etc.
 - [X] as a user, I want to select a focus session.
-- [X] as a user, I want to go back and forward between screens (selection, welcome, etc)
 
-###### Main functionalities
-- [ ] As a user, I want to start a focus session.
+##### Main functionalities
+- [ ] As a user, I want to start a focus session (to be added with the GUI due to terminal functionality).
 
-- [ ] As a user, I want to pause a focus session.
-- [ ] As a user, I want to stop a focus session.
-- [ ] As a user, I want to be able to see what timer is currently going and see it running.
-- [ ] As a user, I want to receive a message when the current timer runs out.
-- [ ] As a user, I want the timer only to change types after I allow it.
+   - [ ] As a user, I want to pause a focus session.
+   
+   - [ ] As a user, I want to stop a focus session.
+   - [ ] As a user, I want to be able to see what timer is currently going and see it running.
+   - [ ] As a user, I want to receive a message when the current timer runs out.
+   - [ ] As a user, I want the timer only to change types after I allow it.
+

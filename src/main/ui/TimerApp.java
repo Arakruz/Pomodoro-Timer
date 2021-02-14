@@ -1,26 +1,27 @@
 package ui;
 
 import model.FocusSession;
-import model.SessionList;
+import model.SessionsList;
+
 import java.util.Scanner;
 
-// The object that runs the app, reacting to the user input, controlling the list of FocusSessions and printing the ui
+// Timer application
 public class TimerApp {
     private Scanner input;
-    private SessionList sessionsList;
+    private SessionsList sessionsList;
 
-    // EFFECTS: Run the application
+    // EFFECTS: Run the timer application
     public TimerApp() {
         runApp();
     }
 
     // MODIFIES: this
-    // EFFECTS: processes user input
+    // EFFECTS: processes user inputs and allows quit to be called any time to close the application
     private void runApp() {
         boolean keepGoing = true;
         String userInput = null;
 
-        initializeSessionList();
+        initializer();
 
         while (keepGoing) {
             welcomeScreen();
@@ -38,9 +39,9 @@ public class TimerApp {
 
     // MODIFIES: this
     // EFFECTS: initializes the SessionList and the input
-    private void initializeSessionList() {
-        input = new Scanner(System.in);
-        sessionsList = new SessionList();
+    private void initializer() {
+        this.input = new Scanner(System.in);
+        this.sessionsList = new SessionsList();
     }
 
     // MODIFIES: this
@@ -55,7 +56,6 @@ public class TimerApp {
                 selectSession();
                 break;
         }
-
     }
 
     // MODIFIES: this
@@ -65,15 +65,15 @@ public class TimerApp {
         FocusSession sessionSelected;
 
         sessionOutput();
-        System.out.println("\ninset the name of the section to be selected or back to go to the previous screen");
+        System.out.println("\nInsert the name of the section to be selected or back to go to the previous screen");
         userInput = input.next();
         sessionSelected = sessionsList.getSessionBasedOnName(userInput);
 
         if (userInput.equals("back")) {
             chooseScreen("null", "welcome");
 
-            // checks if user placed a valid session, if go back to the beginning
         } else if (sessionSelected == null) {
+            // checks if user placed a valid session, if not go back to the beginning
             System.out.println("\nno valid session with given name");
             selectSession();
         } else {
@@ -87,8 +87,8 @@ public class TimerApp {
     // MODIFIES: this
     // EFFECTS: processes user inputs on the welcome screen
     private void processWelcomeScreen(String userInput) {
+        // input coming from the welcoming screen, either adding, selecting, quitting (handled by runApp)
         switch (userInput) {
-            // input coming from the welcoming screen, either adding, selecting, going back, forward or quitting
             case "add":
                 addSession();
                 chooseScreen("null", "welcome");
@@ -99,7 +99,10 @@ public class TimerApp {
                 chooseScreen("null", "selection");
                 break;
 
-            case "null": // Needed for chooseScreen method to work properly
+            case "null": // For runApp to check if the user wants to quit and at the same time use that input on the
+                // welcome screen it needs to pass it as a parameter for this function. When going back and
+                // forward between screens this is not needed, so null is used. Can be used later too for other
+                // functionalities.
                 break;
 
             default:
@@ -111,7 +114,7 @@ public class TimerApp {
     // EFFECTS: processes user inputs on the selection screen
     private void processSelectionScreen(String userInput, FocusSession selectedSession) {
         switch (userInput) {
-            // input coming from the welcoming screen, either adding, selecting, going back, forward or quitting
+            // input coming from the welcoming screen, either adding, selecting or quitting (handled by runApp)
             case "delete":
                 sessionsList.removeSession(selectedSession);
                 System.out.println("\nSession deleted!");
@@ -121,7 +124,6 @@ public class TimerApp {
                 modifySession(selectedSession);
                 break;
 
-            // input coming from the welcoming screen, either adding, selecting, going back, forward or quitting
             case "start":
                 startSession(selectedSession);
                 break;
@@ -131,14 +133,14 @@ public class TimerApp {
         }
     }
 
-    // EFFECTS: display first welcome message to users, showing current listed Focus Sessions to start, add, modify
-    // delete. Max of 5 Sessions shown, with option to show next and previous ones (to be added)
+    // EFFECTS: display first welcome message to users, showing current listed FocusSessions to start, add, modify or
+    // delete.
     private void welcomeScreen() {
         sessionOutput();
         System.out.println("\nSelect from:");
-        System.out.println("\tadd                   | to add a new Focus Session");
-        System.out.println("\tselect                | to select a Focus Session to start, modify or delete");
-        System.out.println("\tquit                  | to quit");
+        System.out.println("\tadd                   | to add a new Session");
+        System.out.println("\tselect                | to select a Session to start, modify or delete");
+        System.out.println("\tquit                  | can be called in any screen to quit the application");
     }
 
     // EFFECTS: Display the possible interactions with the selected section
@@ -150,80 +152,81 @@ public class TimerApp {
         System.out.println("\tmodify    | to modify the specified session");
         System.out.println("\tstart     | to start the specified session");
         System.out.println("\tback      | goes back to the welcome screen");
+        System.out.println("\tquit      | quits the application");
     }
 
     // MODIFIES: this
-    // EFFECTS: creates the system output of all sessions on the list with their respective information
+    // EFFECTS: creates the system output of all sessions on the list with their respective information for the user to
+    // see
     private void sessionOutput() {
         int listSize = sessionsList.getSessionSize();
         FocusSession currentSession;
-        String shortText = " seconds  Short Break: ";
-        String breakText = " seconds  Long Break: ";
+        String breakText = " seconds  Break: ";
+        String restText = " seconds  Rest: ";
 
         if (listSize != 0) {
             int i = 0;
             while (i < listSize) {
                 currentSession = sessionsList.getSession(i);
                 String name = currentSession.getSessionName();
-                int focus = currentSession.getFocusSession();
-                int shortBreak = currentSession.getShortBreak();
-                int rest = currentSession.getLongBreak();
+                int focus = currentSession.getSessionFocus();
+                int shortBreak = currentSession.getSessionBreak();
+                int rest = currentSession.getSessionRest();
 
                 System.out.println("\nSession name: " + name);
-                System.out.println("\tFocus time: " + focus + shortText + shortBreak + breakText + rest + " seconds");
+                System.out.println("\tFocus time: " + focus + breakText + shortBreak + restText + rest + " seconds");
                 i++;
             }
         } else {
-            System.out.println("\n No sessions created yet");
+            System.out.println("\n No session created yet");
         }
     }
 
-    // REQUIRES: the second, third and forth inputs must be numbers
-    // MODIFIES: this
-    // EFFECTS: creates a new session in SessionList based on the users inputs
+    // REQUIRES: the second, third and forth inputs must be positive numbers
+    // MODIFIES: SessionsList
+    // EFFECTS: creates a new FocusSession in SessionsList based on the users inputs
     private void addSession() {
         String sessionInfoInput;
         String name;
         int focus;
         int shortBreak;
-        int longBreak;
+        int rest;
 
         // Grabs all the needed inputs from the user
         System.out.println("Select the session name");
         sessionInfoInput = input.next();
         name = sessionInfoInput;
 
-        System.out.println("Select the duration of the focus section in seconds");
+        System.out.println("Select the duration of the focus time in seconds");
         sessionInfoInput = input.next();
         focus = Integer.parseInt(sessionInfoInput);
 
-        System.out.println("Select the duration of the short break in seconds");
+        System.out.println("Select the duration of the break time in seconds");
         sessionInfoInput = input.next();
         shortBreak = Integer.parseInt(sessionInfoInput);
 
-        System.out.println("Select the duration of the long break in seconds");
+        System.out.println("Select the duration of the rest time in seconds");
         sessionInfoInput = input.next();
-        longBreak = Integer.parseInt(sessionInfoInput);
+        rest = Integer.parseInt(sessionInfoInput);
 
         // Constructs the new FocusSession and adds it to the list
-        sessionsList.addSession(name, focus, shortBreak, longBreak);
+        this.sessionsList.addSession(name, focus, shortBreak, rest);
     }
 
-    // REQUIRES: SessionList must have at least one item
-    // MODIFIES: SessionList
-    // EFFECTS: modifies a session from session list
+    // MODIFIES: FocusSession
+    // EFFECTS: modifies a FocusSession from sessionsList based on given input
     public void modifySession(FocusSession currentSession) {
         String userInput;
         String fieldToChange;
 
-        System.out.println("\nSelect what you want to modify or back (name, focus, break or rest)");
+        System.out.println("\nSelect what you want to modify (name, focus, break or rest) or back");
         userInput = input.next();
         fieldToChange = userInput;
         processModification(fieldToChange, currentSession);
     }
 
     // REQUIRES: if changing a timer user must input a number
-    // MODIFIES: SessionList
+    // MODIFIES: FocusSession
     // EFFECTS: process what the user want to change and modifies it on the FocusSession
     private void processModification(String fieldToChange, FocusSession currentSession) {
         String userInput;
@@ -255,34 +258,10 @@ public class TimerApp {
         }
     }
 
-    // REQUIRES: SessionList must have at least one item
     // MODIFIES: this
-    // EFFECTS: starts a session from session list
+    // EFFECTS: starts a session from session list (currently only printing that it will added in the future)
     private void startSession(FocusSession currentSession) {
-        //TODO find a way to make a timer
-//        boolean keepGoing = true;
-//        String userInput = null;
-//
-//        while (keepGoing) {
-//            userInput = input.next();
-//            userInput = userInput.toLowerCase();
-//
-//            switch (userInput) {
-//                case "quit":
-//                    keepGoing = false;
-//                    break;
-//                case "focus":
-//                    currentSession.runSession("focus");
-//                    break;
-//                case "break":
-//                    currentSession.runSession("short");
-//                    break;
-//                case "rest":
-//                    currentSession.runSession("long");
-//                    break;
-//            }
-//
-//        }
-//        System.out.println("\nGood Job!");
+        System.out.println("Not yet implemented due to the functionalities of the terminal, ");
+        System.out.println("to be added with the GUI. This will run the timer for the session");
     }
 }
