@@ -1,59 +1,57 @@
 package model;
 
-// Represents a Focus Session having a duration for a Short break, Long break, Focus, the number of cycles and name of
-// the session
-@SuppressWarnings("checkstyle:RightCurly")
+// Represents a Focus Session having a duration for a Focus, break and rest timers and name of the session
 public class FocusSession {
-    private String name;    //name of this session
-    private int focusTimer;      //Focus time in minutes
-    private int shortBreak; // Short break time in minutes
-    private int longBreak;  // Long break time in minutes
+    private String name;         // name of this session
+    private int focus;           // Focus time in seconds
+    private int shortBreak;      // break time in seconds
+    private int rest;            // rest time in seconds
 
-    // REQUIRES: sessionShort, sessionLong and sessionFocus have to be greater than 0
-    // EFFECTS: name of session is set as sessionName; sessionShort, sessionLong and sessionFocus are positive integers
+    // REQUIRES: sessionFocus, sessionBreak and sessionRest have to be >= 0
+    // EFFECTS: name of session is set as sessionName; sessionBreak, sessionRest and sessionFocus are positive integers
     // and set to shortBreak, longBreak and focusTimer, respectively.
-    public FocusSession(String sessionName,int sessionFocus, int sessionShort,int sessionLong) {
-        name = sessionName;
-        focusTimer = sessionFocus;
-        shortBreak = sessionShort;
-        longBreak = sessionLong;
+    public FocusSession(String sessionName, int sessionFocus, int sessionBreak, int sessionRest) {
+        this.name = sessionName;
+        this.focus = sessionFocus;
+        this.shortBreak = sessionBreak;
+        this.rest = sessionRest;
     }
 
-    public int getShortBreak() {
-        return shortBreak;
+    public int getSessionBreak() {
+        return this.shortBreak;
     }
 
-    public int getLongBreak() {
-        return longBreak;
+    public int getSessionRest() {
+        return this.rest;
     }
 
-    public int getFocusTimer() {
-        return focusTimer;
+    public int getSessionFocus() {
+        return this.focus;
     }
 
     public String getSessionName() {
-        return name;
+        return this.name;
     }
 
-    // REQUIRES: timerToChange has to be either one of "short","long" or "focus". Int has to be greater than 0
-    // MODIFY: This
-    // EFFECTS: changes the value of shortBreak, longBreak or focusTimer to time based on which timerToChange string was
-    // use as an input, "short", "long", "focus" respectively
+    // REQUIRES: timerToChange has to be either one of "short","long" or "focus". Int has to be >= 0
+    // MODIFIES: This
+    // EFFECTS: changes the value of shortBreak, rest or focus to time based on which timerToChange string wasm use as
+    // an input, "break", "rest", "focus" respectively
     public void intSetter(String timerToChange, int time) {
         switch (timerToChange) {
             case "focus":
-                this.focusTimer = time;
+                this.focus = time;
                 break;
-            case "short":
+            case "break":
                 this.shortBreak = time;
                 break;
-            case "long":
-                this.longBreak = time;
+            case "rest":
+                this.rest = time;
                 break;
         }
     }
 
-    // MODIFY: This
+    // MODIFIES: This
     // EFFECTS: changes the value of sessionName to name
     public void nameSetter(String newName) {
         this.name = newName;
