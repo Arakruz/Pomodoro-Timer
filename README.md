@@ -68,4 +68,10 @@ breaks).
    - [ ] As a user, I want to be able to see what timer is currently going and see it running.
    - [ ] As a user, I want to receive a message when the current timer runs out.
    - [ ] As a user, I want the timer only to change types after I allow it.
+   
+- [ ] As a user, I want to be able to save my sessions to file
+
+   - [ ] As a user, I want to be reminded to save before I quit
+   
+- [ ] As a user, I want to be able to load my sessions from file
 
