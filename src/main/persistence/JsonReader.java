@@ -45,8 +45,7 @@ public class JsonReader {
 
     //  EFFECTS: parses sessionsList from JSON object and returns it
     private SessionsList parseSessionsList(JSONObject jsonObject) {
-        String name = jsonObject.getString("name");
-        SessionsList sl = new SessionsList(name);
+        SessionsList sl = new SessionsList();
         addSessions(sl, jsonObject);
         return sl;
     }

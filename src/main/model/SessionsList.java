@@ -9,12 +9,10 @@ import java.util.List;
 
 // Represents a session list storing all the sessions
 public class SessionsList implements Writable {
-    private String name;
     private List<FocusSession> sessionsList;
 
     // EFFECTS: constructs a list of FocusSessions
-    public SessionsList(String name) {
-        this.name = name;
+    public SessionsList() {
         this.sessionsList = new ArrayList<>();
     }
 
@@ -64,7 +62,6 @@ public class SessionsList implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("name", name);
         json.put("focusSessions", sessionToJson());
         return json;
     }

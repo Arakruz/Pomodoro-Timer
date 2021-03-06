@@ -11,7 +11,7 @@ public class SessionsListTest {
 
     @BeforeEach
     void setUp() {
-        testSessionsList = new SessionsList("Default List");
+        testSessionsList = new SessionsList();
     }
 
     @Test
