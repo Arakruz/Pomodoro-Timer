@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a Focus Session having a duration for a Focus, break and rest timers and name of the session
-public class FocusSession {
+public class FocusSession implements Writable {
     private String name;         // name of this session
     private int focus;           // Focus time in seconds
     private int shortBreak;      // break time in seconds
@@ -51,5 +54,15 @@ public class FocusSession {
     // EFFECTS: changes the value of sessionName to name
     public void nameSetter(String newName) {
         this.name = newName;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("focus", focus);
+        json.put("shortBreak", shortBreak);
+        json.put("rest", rest);
+        return json;
     }
 }
