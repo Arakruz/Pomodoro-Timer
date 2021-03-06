@@ -33,8 +33,6 @@ public class TimerApp {
         String userInput = null;
         this.input = new Scanner(System.in);
 
-//        initializer();
-
         while (keepGoing) {
             welcomeScreen();
             userInput = input.next();
@@ -48,13 +46,6 @@ public class TimerApp {
         }
         System.out.println("\nBye!");
     }
-
-//    // MODIFIES: this
-//    // EFFECTS: initializes the SessionList and the input
-//    private void initializer() {
-//        this.input = new Scanner(System.in);
-//        this.sessionsList = new SessionsList();
-//    }
 
     // MODIFIES: this
     // EFFECTS: sends the input to the correct processing method and screen. This is needed to avoid making multiple
