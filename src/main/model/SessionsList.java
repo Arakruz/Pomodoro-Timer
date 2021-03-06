@@ -1,10 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 // Represents a session list storing all the sessions
-public class SessionsList {
+public class SessionsList implements Writable {
     private List<FocusSession> sessionsList;
 
     // EFFECTS: constructs a list of FocusSessions
@@ -32,6 +37,11 @@ public class SessionsList {
         return null;
     }
 
+    // EFFECTS: returns an unmodifiable list of thingies in this workroom
+    public List<FocusSession> getSessions() {
+        return Collections.unmodifiableList(sessionsList);
+    }
+
     // REQUIRES: sessionsList needs at least 1 item
     // MODIFIES: this
     // EFFECTS: removes the specified FocusSession from the SessionList
@@ -40,11 +50,27 @@ public class SessionsList {
     }
 
     // MODIFY: this
-    // EFFECTS: Constructs a new FocusSession with given parameters and adds it to the list
-    public void addSession(String name, int focus, int shortBreak, int rest) {
-        FocusSession genericSession;
+    // EFFECTS: adds a given FocusSession to the list
+    public void addSession(FocusSession session) {
+        this.sessionsList.add(session);
+    }
 
-        genericSession = new FocusSession(name, focus, shortBreak, rest);
-        this.sessionsList.add(genericSession);
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("focusSessions", sessionToJson());
+        return json;
+    }
+
+    // EFFECTS: returns sessions in this SessionsList as a JSON array
+    private JSONArray sessionToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (FocusSession fs : sessionsList) {
+            jsonArray.put(fs.toJson());
+        }
+
+        return jsonArray;
     }
 }

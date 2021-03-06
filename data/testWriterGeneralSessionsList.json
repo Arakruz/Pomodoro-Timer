@@ -1,0 +1,14 @@
+{"focusSessions": [
+    {
+        "rest": 3,
+        "name": "a",
+        "focus": 1,
+        "shortBreak": 2
+    },
+    {
+        "rest": 4,
+        "name": "b",
+        "focus": 2,
+        "shortBreak": 3
+    }
+]}

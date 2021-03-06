@@ -2,16 +2,27 @@ package ui;
 
 import model.FocusSession;
 import model.SessionsList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // Timer application
 public class TimerApp {
+    private static final String JSON_STORE = "./data/SessionsList.json";
     private Scanner input;
     private SessionsList sessionsList;
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
 
     // EFFECTS: Run the timer application
     public TimerApp() {
+        this.input = new Scanner(System.in);
+        this.sessionsList = new SessionsList();
+        this.jsonReader = new JsonReader(JSON_STORE);
+        this.jsonWriter = new JsonWriter(JSON_STORE);
         runApp();
     }
 
@@ -20,8 +31,9 @@ public class TimerApp {
     private void runApp() {
         boolean keepGoing = true;
         String userInput = null;
+        this.input = new Scanner(System.in);
 
-        initializer();
+//        initializer();
 
         while (keepGoing) {
             welcomeScreen();
@@ -37,12 +49,12 @@ public class TimerApp {
         System.out.println("\nBye!");
     }
 
-    // MODIFIES: this
-    // EFFECTS: initializes the SessionList and the input
-    private void initializer() {
-        this.input = new Scanner(System.in);
-        this.sessionsList = new SessionsList();
-    }
+//    // MODIFIES: this
+//    // EFFECTS: initializes the SessionList and the input
+//    private void initializer() {
+//        this.input = new Scanner(System.in);
+//        this.sessionsList = new SessionsList();
+//    }
 
     // MODIFIES: this
     // EFFECTS: sends the input to the correct processing method and screen. This is needed to avoid making multiple
@@ -104,7 +116,12 @@ public class TimerApp {
                 // forward between screens this is not needed, so null is used. Can be used later too for other
                 // functionalities.
                 break;
-
+            case "save":
+                saveList();
+                break;
+            case "load":
+                loadList();
+                break;
             default:
                 System.out.println("Selection not valid");
         }
@@ -140,6 +157,8 @@ public class TimerApp {
         System.out.println("\nSelect from:");
         System.out.println("\tadd                   | to add a new Session");
         System.out.println("\tselect                | to select a Session to start, modify or delete");
+        System.out.println("\tsave                  | to save the current Session to file");
+        System.out.println("\tload                  | to save the current Session from file");
         System.out.println("\tquit                  | can be called in any screen to quit the application");
     }
 
@@ -210,7 +229,7 @@ public class TimerApp {
         rest = Integer.parseInt(sessionInfoInput);
 
         // Constructs the new FocusSession and adds it to the list
-        this.sessionsList.addSession(name, focus, shortBreak, rest);
+        this.sessionsList.addSession(new FocusSession(name, focus, shortBreak, rest));
     }
 
     // MODIFIES: FocusSession
@@ -263,5 +282,28 @@ public class TimerApp {
     private void startSession(FocusSession currentSession) {
         System.out.println("Not yet implemented due to the functionalities of the terminal, ");
         System.out.println("to be added with the GUI. This will run the timer for the session");
+    }
+
+    // EFFECTS: saves the SessionsList to file
+    private void saveList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(sessionsList);
+            jsonWriter.close();
+            System.out.println("Saved SessionsList to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads SessionsList from file
+    private void loadList() {
+        try {
+            sessionsList = jsonReader.read();
+            System.out.println("Loaded SessionsList from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }
