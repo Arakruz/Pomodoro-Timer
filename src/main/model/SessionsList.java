@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 // Represents a session list storing all the sessions
@@ -36,20 +37,16 @@ public class SessionsList implements Writable {
         return null;
     }
 
+    // EFFECTS: returns an unmodifiable list of thingies in this workroom
+    public List<FocusSession> getSessions() {
+        return Collections.unmodifiableList(sessionsList);
+    }
+
     // REQUIRES: sessionsList needs at least 1 item
     // MODIFIES: this
     // EFFECTS: removes the specified FocusSession from the SessionList
     public void removeSession(FocusSession sessionToRemove) {
         this.sessionsList.remove(sessionToRemove);
-    }
-
-    // MODIFY: this
-    // EFFECTS: Constructs a new FocusSession with given parameters and adds it to the list
-    public void addNewSession(String name, int focus, int shortBreak, int rest) {
-        FocusSession genericSession;
-
-        genericSession = new FocusSession(name, focus, shortBreak, rest);
-        this.sessionsList.add(genericSession);
     }
 
     // MODIFY: this

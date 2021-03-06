@@ -8,23 +8,18 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class SessionsListTest {
     private SessionsList testSessionsList;
+    private FocusSession testSession;
+    private FocusSession danielSession;
 
     @BeforeEach
     void setUp() {
         testSessionsList = new SessionsList();
-    }
-
-    @Test
-    void testAddNewSession() {
-        testSessionsList.addNewSession("test", 30, 5, 10);
-        assertEquals(1, testSessionsList.getSessionSize());
-        assertEquals("test", testSessionsList.getSession(0).getSessionName());
+        testSession = new FocusSession("test", 30, 5, 10);
+        danielSession = new FocusSession("Daniel", 50, 10, 30);
     }
 
     @Test
     void testAddSession() {
-        FocusSession testSession = new FocusSession("test", 30, 5, 10);
-
         testSessionsList.addSession(testSession);
         assertEquals(1, testSessionsList.getSessionSize());
         assertEquals("test", testSessionsList.getSession(0).getSessionName());
@@ -32,11 +27,8 @@ public class SessionsListTest {
 
     @Test
     void testAddSessionWithNonEmptyList() {
-        FocusSession testSession = new FocusSession("test", 30, 5, 10);
-        FocusSession testSession2 = new FocusSession("Daniel", 50, 10, 30);
-
         testSessionsList.addSession(testSession);
-        testSessionsList.addSession(testSession2);
+        testSessionsList.addSession(danielSession);
 
         assertEquals(2, testSessionsList.getSessionSize());
 
@@ -49,8 +41,8 @@ public class SessionsListTest {
 
     @Test
     void testAddNewSessionWithNonEmptyList() {
-        testSessionsList.addNewSession("test", 30, 5, 10);
-        testSessionsList.addNewSession("Daniel", 50, 10, 30);
+        testSessionsList.addSession(testSession);
+        testSessionsList.addSession(danielSession);
 
         assertEquals(2, testSessionsList.getSessionSize());
 
@@ -64,8 +56,8 @@ public class SessionsListTest {
     @Test
     void testRemoveSession() {
         FocusSession sessionToBeRemove;
-        testSessionsList.addNewSession("test", 30, 5, 10);
-        testSessionsList.addNewSession("Daniel", 50, 10, 30);
+        testSessionsList.addSession(testSession);
+        testSessionsList.addSession(danielSession);
 
         assertEquals(2, testSessionsList.getSessionSize());
         assertEquals("test", testSessionsList.getSession(0).getSessionName());
@@ -82,8 +74,8 @@ public class SessionsListTest {
     void testGetSessionBasedOnName() {
         FocusSession sessionToFind;
 
-        testSessionsList.addNewSession("test", 30, 5, 10);
-        testSessionsList.addNewSession("Daniel", 50, 10, 30);
+        testSessionsList.addSession(testSession);
+        testSessionsList.addSession(danielSession);
 
         assertEquals(2, testSessionsList.getSessionSize());
         assertEquals("test", testSessionsList.getSession(0).getSessionName());
@@ -95,7 +87,7 @@ public class SessionsListTest {
 
     @Test
     void testGetSessionBasedOnNameReturnsNull() {
-        testSessionsList.addNewSession("test", 30, 5, 10);
+        testSessionsList.addSession(testSession);
 
         assertNull(testSessionsList.getSessionBasedOnName("Daniel"));
     }

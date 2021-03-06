@@ -229,7 +229,7 @@ public class TimerApp {
         rest = Integer.parseInt(sessionInfoInput);
 
         // Constructs the new FocusSession and adds it to the list
-        this.sessionsList.addNewSession(name, focus, shortBreak, rest);
+        this.sessionsList.addSession(new FocusSession(name, focus, shortBreak, rest));
     }
 
     // MODIFIES: FocusSession
