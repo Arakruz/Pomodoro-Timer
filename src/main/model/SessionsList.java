@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.NoSessionException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -37,7 +38,7 @@ public class SessionsList implements Writable {
         return null;
     }
 
-    // EFFECTS: returns an unmodifiable list of thingies in this workroom
+    // EFFECTS: returns an unmodifiable list of FocusSessions in this SessionsList
     public List<FocusSession> getSessions() {
         return Collections.unmodifiableList(sessionsList);
     }
@@ -45,8 +46,12 @@ public class SessionsList implements Writable {
     // REQUIRES: sessionsList needs at least 1 item
     // MODIFIES: this
     // EFFECTS: removes the specified FocusSession from the SessionList
-    public void removeSession(FocusSession sessionToRemove) {
-        this.sessionsList.remove(sessionToRemove);
+    public void removeSession(FocusSession sessionToRemove) throws NoSessionException {
+        if (this.sessionsList.remove(sessionToRemove)) {
+            this.sessionsList.remove(sessionToRemove);
+        } else {
+            throw new NoSessionException("No Session Selected");
+        }
     }
 
     // MODIFY: this
