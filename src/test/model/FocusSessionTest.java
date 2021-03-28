@@ -49,5 +49,11 @@ class FocusSessionTest {
         assertEquals("worked!", testSession.getSessionName());
     }
 
+    @Test
+    void toStringTest() {
+        // checks if the toString method is giving the correct output
+        String expectedString = "test | Focus 30 minutes | Break 5 minutes | Rest 10 minutes | ";
+        assertEquals(expectedString,testSession.toString());
+    }
 
 }
