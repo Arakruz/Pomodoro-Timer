@@ -36,12 +36,13 @@ public class FocusSession implements Writable {
         return this.name;
     }
 
+    // EFFECTS: returns a string with the name, focus timer, break timer, rest timer
     @Override
     public String toString() {
         return name + " | " + "Focus " + tsHelper(focus) + "Break " + tsHelper(shortBreak) + "Rest " + tsHelper(rest);
     }
 
-    // EFFECTS; creates a string from the given int and adds the structure needed to represent the FocusSession as a
+    // EFFECTS: creates a string from the given int and adds the structure needed to represent the FocusSession as a
     //          single string
     public String tsHelper(int i) {
         return Integer.toString(i) + " minutes | ";
