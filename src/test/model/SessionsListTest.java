@@ -4,8 +4,7 @@ import model.exceptions.NoSessionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SessionsListTest {
     private SessionsList testSessionsList;
@@ -73,6 +72,16 @@ public class SessionsListTest {
 
         assertEquals(1, testSessionsList.getSessionSize());
         assertEquals("Daniel", testSessionsList.getSession(0).getSessionName());
+    }
+
+    @Test
+    void testRemoveSessionException() {
+        try {
+            testSessionsList.removeSession(testSession);
+            fail("didn't catch exception");
+        } catch (Exception e) {
+            assertEquals(0,testSessionsList.getSessionSize());
+        }
     }
 
     @Test
