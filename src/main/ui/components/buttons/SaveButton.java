@@ -16,7 +16,7 @@ public class SaveButton extends Button {
     }
 
     // MODIFIES: this
-    // EFFECTS:  creates a new "Save" button and invokes addToParent() on the parent
+    // EFFECTS:  creates a new "Save" button and invokes addToParent()
     @Override
     protected void createButton() {
         button = new JButton("Save");
@@ -24,7 +24,6 @@ public class SaveButton extends Button {
         addToParent();
     }
 
-    // MODIFIES: this
     // EFFECTS:  constructs an ActionListener which is then added to this object's JButton
     @Override
     protected void addListener() {
@@ -43,9 +42,9 @@ public class SaveButton extends Button {
                 jsonWriter.open();
                 jsonWriter.write(sessionsList);
                 jsonWriter.close();
-                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"Saved SessionsList to " + jsonPath);
+                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Saved SessionsList to " + jsonPath);
             } catch (FileNotFoundException exception) {
-                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"Unable to write to file: " + jsonPath);
+                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Unable to write to file: " + jsonPath);
             }
         }
     }

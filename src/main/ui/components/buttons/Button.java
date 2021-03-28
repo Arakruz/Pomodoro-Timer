@@ -8,8 +8,9 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public abstract class Button {
 
+// Represents a button the user can interact with
+public abstract class Button {
     protected JButton button;
     protected Editor editor;
     protected SessionsList sessionsList;
@@ -40,7 +41,7 @@ public abstract class Button {
         button.setBorderPainted(true);
         button.setFocusPainted(false);
         button.setContentAreaFilled(false);
-        button.setPreferredSize(new Dimension(140,80));
+        button.setPreferredSize(new Dimension(140, 80));
         button.setBackground(background);
         button.setForeground(foreground);
         button.setBorder(border);
@@ -48,10 +49,10 @@ public abstract class Button {
         return button;
     }
 
-    // EFFECTS: creates button to activate tool
+    // EFFECTS: creates button to activate button
     protected abstract void createButton();
 
-    // EFFECTS: adds a listener for this tool
+    // EFFECTS: adds a listener for this button
     protected abstract void addListener();
 
     // MODIFIES: parent

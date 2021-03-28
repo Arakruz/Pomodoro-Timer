@@ -2,6 +2,7 @@ package ui.components.buttons;
 
 import ui.Editor;
 import ui.components.CounterPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +18,7 @@ public class StopButton extends Button {
     }
 
     // MODIFIES: this
-    // EFFECTS:  creates a new "Stop" button and invokes addToParent() on the parent passed to this method
+    // EFFECTS:  creates a new "Stop" button and invokes addToParent()
     @Override
     protected void createButton() {
         button = new JButton("Stop");
@@ -25,12 +26,14 @@ public class StopButton extends Button {
         addToParent();
     }
 
+    // MODIFIES: parent
+    // EFFECTS:  adds the given button to the counterPanel with correct gbc positioning
     @Override
     public void addToParent() {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 5;
-        parent.add(button,gbc);
+        parent.add(button, gbc);
     }
 
     // MODIFIES: this
@@ -41,6 +44,8 @@ public class StopButton extends Button {
     }
 
     public class StopButtonHandler implements ActionListener {
+        // MODIFIES: counterPanel
+        // EFFECTS: makes the counter inside counterPanel to stop running. If it's already not running it does nothing
         @Override
         public void actionPerformed(ActionEvent e) {
             if (counterPanel.getTimerController() != CounterPanel.TimerController.FINISHED) {

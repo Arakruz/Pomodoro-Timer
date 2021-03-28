@@ -8,6 +8,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 import java.awt.*;
 
+// Represents a Tool that generates a popup to collect user inputs about a selected focusSession
 public abstract class Tool {
     private static final int NAME_MAX_SIZE = 20;
     private static final int INT_MAX_SIZE = 2;
@@ -29,7 +30,7 @@ public abstract class Tool {
         this.editor = editor;
         this.parent = parent;
         panel = new JPanel();
-        panel.setLayout(new GridLayout(0,4,2,2));
+        panel.setLayout(new GridLayout(0, 4, 2, 2));
         nameField = new JTextField(NAME_MAX_SIZE);
         focusField = new JTextField(INT_MAX_SIZE);
         breakField = new JTextField(INT_MAX_SIZE);
@@ -41,6 +42,9 @@ public abstract class Tool {
         restField.setDocument(new FieldLimit(INT_MAX_SIZE));
     }
 
+    // MODIFIES: this
+    // EFFECTS:  adds JLabels and JTextFields to the panel that will collect the user's input, giving them instructions
+    //           of what to add
     protected void makeSessionDialog() {
         panel.add(new JLabel("Name of your focus session :"));
         panel.add(nameField);
@@ -55,8 +59,12 @@ public abstract class Tool {
         panel.add(restField);
     }
 
+    // MODIFIES: this
+    // EFFECTS:  handles the input from the user from the JTextFields
     protected abstract void dialogProcessor();
 
+    // MODIFIES: Editor
+    // EFFECTS:  updates the sessionList in Editor to the include the appropriate new value
     protected abstract void listModifier();
 
     private static class FieldLimit extends PlainDocument {
@@ -67,6 +75,7 @@ public abstract class Tool {
             this.limit = limit;
         }
 
+        // EFFECTS: Limits the number of characters the user can input in the JTextFields
         public void insertString(int offset, String string, AttributeSet attributeSet) throws BadLocationException {
             if ((getLength() + string.length()) <= limit) {
                 super.insertString(offset, string, attributeSet);

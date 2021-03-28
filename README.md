@@ -39,8 +39,6 @@ to be implemented.
 - [X] As a user, I want to add a focus timer to my focus session.
 - [X] As a user, I want to add a short break timer to my focus session.
 - [X] As a user, I want to add a long break timer to my focus session.
-- [ ] As a user, I want to add the number of cycles for this session (a total of 4 focus timers and their respective 
-breaks).
 
 ##### Removing and editing current information 
 - [X] As a user, I want to remove a focus session from my sessions list.
@@ -50,26 +48,29 @@ breaks).
     
     - [X] As a user, I want to edit a short break timer from my focus session.
     - [X] As a user, I want to edit a long break timer from my focus session.
-    - [ ] As a user, I want to edit the number of cycles from this session (a total of 4 focus timers and their respective 
-    breaks).
+
     
 ##### User interface
 - [X] As a user, I want to see my sessions list with the timers and names of my sessions.
 
-- [X] As a user, I want to interact with the program through the console, changing screens, setting names etc.
-- [X] as a user, I want to select a focus session.
+- [X] ~~As a user, I want to interact with the program through the console, changing screens, setting names etc.~~
+- [X] As a user, I want to interact with the program through a GUI.
+- [X] As a user, I want to select a focus session.
+- [X] As a user, I want to be notified once a timer reaches 0. 
 
 ##### Main functionalities
-- [ ] As a user, I want to start a focus session (to be added with the GUI due to terminal functionality).
+- [X] As a user, I want to start a focus session (to be added with the GUI due to terminal functionality).
 
-   - [ ] As a user, I want to pause a focus session.
+   - [X] As a user, I want to pause a focus session.
    
-   - [ ] As a user, I want to stop a focus session.
-   - [ ] As a user, I want to be able to see what timer is currently going and see it running.
-   - [ ] As a user, I want to receive a message when the current timer runs out.
-   - [ ] As a user, I want the timer only to change types after I allow it.
+   - [X] As a user, I want to stop a focus session.
+   - [X] As a user, I want to be able to see what timer is currently going and see it running.
+   - [X] As a user, I want to receive a message when the current timer runs out.
+   - [X] As a user, I want the timer only to change types after I allow it.
    
 - [X] As a user, I want to be able to save my sessions to file
    
 - [X] As a user, I want to be able to load my sessions from file
+
+- [X] As a user, I want the sessions list to be automatically loaded from file when I open the program
 

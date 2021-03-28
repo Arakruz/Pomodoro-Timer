@@ -13,7 +13,7 @@ public class AddButton extends Button {
     }
 
     // MODIFIES: this
-    // EFFECTS:  creates a new "Add" button and invokes addToParent() on the parent passed to this method
+    // EFFECTS:  creates a new "Add" button and invokes addToParent()
     @Override
     protected void createButton() {
         button = new JButton("Add");
@@ -29,10 +29,10 @@ public class AddButton extends Button {
     }
 
     private class AddToolHandler implements ActionListener {
-        // TODO: comments
+        // EFFECTS: creates an AddTool to process userInput and add a focusSession to the sessionList
         @Override
         public void actionPerformed(ActionEvent e) {
-            AddTool addTool = new AddTool(editor,parent);
+            new AddTool(editor, parent);
         }
     }
 

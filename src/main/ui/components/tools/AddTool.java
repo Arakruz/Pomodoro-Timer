@@ -7,8 +7,8 @@ import ui.components.tools.Tool;
 import javax.swing.*;
 
 public class AddTool extends Tool {
-    public AddTool(Editor editor,JComponent parent) {
-        super(editor,parent);
+    public AddTool(Editor editor, JComponent parent) {
+        super(editor, parent);
         makeSessionDialog();
         dialogProcessor();
     }
@@ -32,14 +32,14 @@ public class AddTool extends Tool {
                 rest = Integer.parseUnsignedInt(restField.getText());
                 listModifier();
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"Please input number for the timers");
+                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Please input number for the timers");
             }
         }
     }
 
     @Override
     protected void listModifier() {
-        FocusSession session = new FocusSession(name,focus,shortBreak,rest);
+        FocusSession session = new FocusSession(name, focus, shortBreak, rest);
         editor.getSessionsList().addSession(session);
         editor.updateListModel();
     }

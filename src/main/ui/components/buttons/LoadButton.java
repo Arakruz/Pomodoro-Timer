@@ -1,6 +1,7 @@
 package ui.components.buttons;
 
 import ui.Editor;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +12,7 @@ public class LoadButton extends Button {
     }
 
     // MODIFIES: this
-    // EFFECTS:  creates a new "Load" button and invokes addToParent() on the parent passed to this method
+    // EFFECTS:  creates a new "Load" button and invokes addToParent()
     @Override
     protected void createButton() {
         button = new JButton("Load");

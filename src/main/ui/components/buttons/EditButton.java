@@ -13,7 +13,7 @@ public class EditButton extends Button {
     }
 
     // MODIFIES: this
-    // EFFECTS:  creates a new "Edit Session" button and invokes addToParent() on the parent passed to this method
+    // EFFECTS:  creates a new "Edit Session" button and invokes addToParent()
     @Override
     protected void createButton() {
         button = new JButton("Edit");
@@ -29,10 +29,10 @@ public class EditButton extends Button {
     }
 
     private class EditToolHandler implements ActionListener {
-        // TODO: comments
+        // EFFECTS: creates an EditTool to process userInput and change the selected sessionList
         @Override
         public void actionPerformed(ActionEvent e) {
-            EditTool editTool = new EditTool(editor,parent);
+            new EditTool(editor, parent);
         }
     }
 

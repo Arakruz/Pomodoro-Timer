@@ -2,7 +2,6 @@ package ui.components.tools;
 
 import model.FocusSession;
 import ui.Editor;
-import ui.components.tools.Tool;
 
 import javax.swing.*;
 

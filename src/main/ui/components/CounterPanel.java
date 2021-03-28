@@ -10,34 +10,38 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 public class CounterPanel extends JPanel {
-    public static final Font TIMER_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100);
-    public static final Font NAME_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 60);
-    public static final double COLLUM_WEIGHT = 0.2;
-    public static final double ROW_WEIGHT = 0.2;
-    private GridBagConstraints gbc;
-    private Editor editor;
+    // Font, color, format and GridBagConstraints that define how the CounterPanel will look. Also the editor needed to
+    // get some of this information
+    private static final Font TIMER_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100);
+    private static final Font NAME_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 60);
+    private final DecimalFormat formatter = new DecimalFormat("00");
+    private final GridBagConstraints gbc;
+    private final Editor editor;
+    private Color background;
+    private Color foreground;
+    // JLabels that will be shown to the user with the counter and it's name
+    private JLabel counterName;
+    private JLabel counterTimer;
+    // Necessary fields that are used to make the logic behind the counter work
     private FocusSession currentSession;
     private PossibleTimers currentTimer;
     private int cycles;
-    private JLabel counterName;
-    private JLabel counterTimer;
-    private StartButton startButton;
-    private StopButton stopButton;
     private int minutes;
     private int seconds;
     private int savedMinutes;
     private int savedSeconds;
     private Timer timer;
     private TimerController timerController;
-    private Color background;
-    private Color foreground;
 
+    // All possible states for the counter
     public enum TimerController {
         RUNNING, STOPPED, FINISHED, STOP
     }
 
+    // All possible times of a focus session
     public enum PossibleTimers {
         FOCUS, BREAK, REST
     }
@@ -46,44 +50,54 @@ public class CounterPanel extends JPanel {
         this.editor = editor;
         this.timerController = TimerController.FINISHED;
         this.setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
+        this.gbc = new GridBagConstraints();
         currentSessionUpdater();
         initializeFields();
         initializeCounterLabels();
         counterUpdater();
     }
 
+    // MODIFIES: this
+    // EFFECTS:  updates the current session
     public void currentSessionUpdater() {
         this.currentSession = editor.getCurrentSession();
     }
 
+    // MODIFIES: this
+    // EFFECTS:  initializes cycles as 0, the background and foreground as the one being used in the editor, the current
+    //           timer as focus, the save/load buttons and labels
     private void initializeFields() {
-        cycles = 0;
-        background = editor.getBackground();
-        foreground = editor.getForeground();
-        currentTimer = PossibleTimers.FOCUS;
-        counterName = new JLabel();
-        counterTimer = new JLabel();
-        startButton = new StartButton(editor, this);
-        stopButton = new StopButton(editor, this);
+        this.cycles = 0;
+        this.background = editor.getBackground();
+        this.foreground = editor.getForeground();
+        this.currentTimer = PossibleTimers.FOCUS;
+        this.counterName = new JLabel();
+        this.counterTimer = new JLabel();
+        new StartButton(editor, this);
+        new StopButton(editor, this);
     }
 
+    // MODIFIES: this
+    // EFFECTS:  initializes the counter labels that represent the name and the actual counter and set's how it will
+    //           look
     private void initializeCounterLabels() {
         counterUpdater();
-        gbc.gridx = 3;
-        gbc.gridy = 0;
-        this.add(counterName,gbc);
-        gbc.gridx = 3;
-        gbc.gridy = 3;
-        this.add(counterTimer,gbc);
-        counterName.setBackground(background);
-        counterName.setForeground(foreground);
-        counterName.setFont(NAME_FONT);
-        counterTimer.setBackground(background);
-        counterTimer.setForeground(foreground);
-        counterTimer.setFont(TIMER_FONT);
+        this.gbc.gridx = 3;
+        this.gbc.gridy = 0;
+        this.add(counterName, gbc);
+        this.gbc.gridx = 3;
+        this.gbc.gridy = 3;
+        this.add(counterTimer, gbc);
+        this.counterName.setBackground(background);
+        this.counterName.setForeground(foreground);
+        this.counterName.setFont(NAME_FONT);
+        this.counterTimer.setBackground(background);
+        this.counterTimer.setForeground(foreground);
+        this.counterTimer.setFont(TIMER_FONT);
     }
 
+    // MODIFIES: this
+    // EFFECTS:  update minute, seconds, counter name and timer based on the current state of timerController
     public void counterUpdater() {
         try {
             if (timerController.equals(TimerController.FINISHED)) {
@@ -98,9 +112,11 @@ public class CounterPanel extends JPanel {
             minutes = 0;
         }
         counterName.setText(currentTimer.toString());
-        counterTimer.setText(minutes + " : " + seconds);
+        counterTimer.setText(formatter.format(minutes) + " : " + formatter.format(seconds));
     }
 
+    // MODIFIES: this
+    // EFFECTS:  returns the appropriate int value from currentSession based on the timer running
     private int focusSessionIntGetter() throws NullPointerException {
         switch (currentTimer) {
             case BREAK:
@@ -112,6 +128,9 @@ public class CounterPanel extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS:  update the next timer to run and the number of cycles that the counter has gone through. Cycles are
+    //           based on how many focus timers have been taken
     public void currentTimerUpdater() {
         if (currentTimer == PossibleTimers.FOCUS) {
             if (cycles == 2) {
@@ -127,21 +146,15 @@ public class CounterPanel extends JPanel {
         counterUpdater();
     }
 
+    // MODIFIES: this
+    // EFFECTS:  runs the actual counter
     public void counterRunner() {
         timer = new Timer(1000, new TimerHandler());
         timer.start();
     }
 
-    public int getCycles() {
-        return cycles;
-    }
-
     public void setCycles(int cycles) {
         this.cycles = cycles;
-    }
-
-    public PossibleTimers getCurrentTimer() {
-        return currentTimer;
     }
 
     public void setCurrentTimer(PossibleTimers currentTimer) {
@@ -156,12 +169,11 @@ public class CounterPanel extends JPanel {
         this.timerController = timerController;
     }
 
-
-    public GridBagConstraints getGbc() {
-        return gbc;
-    }
-
+    // Handles the actionListener that enables the timer to keep running
     private class TimerHandler implements ActionListener {
+        // MODIFIES: counterPanel
+        // EFFECTS:  Controls what will happen based on the timerController, saving the current set of minutes/seconds,
+        //           loading them from savedMinutes/savedSeconds or just run the timer
         @Override
         public void actionPerformed(ActionEvent e) {
             if (TimerController.STOPPED == timerController) {
@@ -181,14 +193,19 @@ public class CounterPanel extends JPanel {
             }
         }
 
+        // MODIFIES: counterPanel
+        // EFFECTS:  runs the counter until it reaches 0 where it plays a sounds and gives a popup message
         void timerHelper() {
             if (minutes == 0 && seconds == 0) {
                 try {
                     playAudio();
                 } catch (IOException exception) {
-                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"Audio File Not Found");
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Audio File Not Found");
                 }
-                JOptionPane.showMessageDialog(editor, "Timer Up", "Stopped", 0);
+                JOptionPane.showMessageDialog(editor,
+                        "Timer Up",
+                        "Stopped",
+                        JOptionPane.INFORMATION_MESSAGE);
                 timerController = TimerController.FINISHED;
                 currentTimerUpdater();
                 timer.stop();
@@ -203,6 +220,7 @@ public class CounterPanel extends JPanel {
             }
         }
 
+        // EFFECTS: creates a new AudioComponent to play the corresponding sound based on what timer finished running
         void playAudio() throws IOException {
             if (currentTimer == PossibleTimers.FOCUS) {
                 new AudioComponent(PossibleTimers.FOCUS);
