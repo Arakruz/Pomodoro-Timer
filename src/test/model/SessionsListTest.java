@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.NoSessionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -64,7 +65,11 @@ public class SessionsListTest {
         assertEquals("Daniel", testSessionsList.getSession(1).getSessionName());
 
         sessionToBeRemove = testSessionsList.getSession(0);
-        testSessionsList.removeSession(sessionToBeRemove);
+        try {
+            testSessionsList.removeSession(sessionToBeRemove);
+        } catch (NoSessionException exception) {
+            exception.printStackTrace();
+        }
 
         assertEquals(1, testSessionsList.getSessionSize());
         assertEquals("Daniel", testSessionsList.getSession(0).getSessionName());

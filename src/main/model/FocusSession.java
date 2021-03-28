@@ -36,10 +36,21 @@ public class FocusSession implements Writable {
         return this.name;
     }
 
+    @Override
+    public String toString() {
+        return name + " | " + "Focus " + tsHelper(focus) + "Break " + tsHelper(shortBreak) + "Rest " + tsHelper(rest);
+    }
+
+    // EFFECTS; creates a string from the given int and adds the structure needed to represent the FocusSession as a
+    //          single string
+    public String tsHelper(int i) {
+        return Integer.toString(i) + " minutes | ";
+    }
+
     // REQUIRES: timerToChange has to be either one of "short","long" or "focus". Int has to be >= 0
     // MODIFIES: This
     // EFFECTS: changes the value of shortBreak, rest or focus to time based on which timerToChange string wasm use as
-    // an input, "break", "rest", "focus" respectively
+    //          an input, "break", "rest", "focus" respectively
     public void intSetter(String timerToChange, int time) {
         if (timerToChange.equals("focus")) {
             this.focus = time;
