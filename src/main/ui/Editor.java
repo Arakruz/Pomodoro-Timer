@@ -14,10 +14,10 @@ import java.util.List;
 import javax.swing.*;
 
 public class Editor extends JFrame {
-    public static final int WIDTH = 1050;
+    public static final int WIDTH = 1135;
     public static final int HEIGHT = 700;
-    public static final int MIN_WIDTH = 750;
-    public static final int MIN_HEIGHT = 500;
+    public static final int MIN_WIDTH = 1000;
+    public static final int MIN_HEIGHT = 630;
     public static final double COLLUM1_PERCENT = 0.4;
     public static final double ROW1_PERCENT = 0.85;
     public static final int COLLUM1_WIDTH = (int) (WIDTH * COLLUM1_PERCENT);
@@ -29,6 +29,10 @@ public class Editor extends JFrame {
     public static final double ROW1_WEIGHT = ROW1_PERCENT;
     public static final double ROW2_WEIGHT = 1 - ROW1_PERCENT;
     public static final String JSON_STORE = "./data/SessionsList.json";
+    public static final Color BACKGROUND = new Color(0x2F3137);
+    public static final Color FOREGROUND = new Color(0x72757D);
+    public static final Font BUTTON_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+    public static final Font LIST_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 16);
 
     private SessionsList sessionsList;
     private JPanel emptyPanel;
@@ -92,7 +96,8 @@ public class Editor extends JFrame {
 
     private JPanel initializeEmptyPanel() {
         emptyPanel = new JPanel();
-        emptyPanel.setBackground(Color.lightGray);
+        emptyPanel.setBackground(BACKGROUND);
+        emptyPanel.setForeground(FOREGROUND);
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.BOTH;
@@ -102,6 +107,8 @@ public class Editor extends JFrame {
 
     private CounterPanel initializeCounterPanel() {
         counterPanel = new CounterPanel(this);
+        counterPanel.setBackground(BACKGROUND);
+        counterPanel.setForeground(FOREGROUND);
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.BOTH;
@@ -113,10 +120,14 @@ public class Editor extends JFrame {
     private JList<FocusSession> initializeListPanel() {
         listPanel = new ListPanel(listModel, counterPanel);
         listPanel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        listPanel.setBackground(Color.LIGHT_GRAY);
-
+        listPanel.setBackground(BACKGROUND);
+        listPanel.setForeground(FOREGROUND);
+        listPanel.setFont(LIST_FONT);
+        listPanel.setFixedCellHeight(30);
+        listPanel.setSelectionBackground(new Color(0xFF2F3D5C, true));
         JScrollPane scrollPane = new JScrollPane(listPanel);
         scrollPane.setLayout(new ScrollPaneLayout());
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.setHorizontalScrollBar(scrollPane.createHorizontalScrollBar());
         scrollPane.setVerticalScrollBar(scrollPane.createVerticalScrollBar());
         gbc.gridx = 0;
@@ -130,7 +141,8 @@ public class Editor extends JFrame {
     private JPanel initializeButtonPanel() {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.setBackground(Color.lightGray);
+        buttonPanel.setBackground(BACKGROUND);
+        buttonPanel.setForeground(FOREGROUND);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 1;
         gbc.gridy = 1;

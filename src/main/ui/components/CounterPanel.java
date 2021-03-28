@@ -9,8 +9,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class CounterPanel extends JPanel {
+    public static final Font TIMER_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100);
+    public static final Font NAME_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 60);
+    public static final double COLLUM_WEIGHT = 0.2;
+    public static final double ROW_WEIGHT = 0.2;
+    private GridBagConstraints gbc;
     private Editor editor;
     private FocusSession currentSession;
     private PossibleTimers currentTimer;
@@ -25,6 +31,8 @@ public class CounterPanel extends JPanel {
     private int savedSeconds;
     private Timer timer;
     private TimerController timerController;
+    private Color background;
+    private Color foreground;
 
     public enum TimerController {
         RUNNING, STOPPED, FINISHED, STOP
@@ -37,8 +45,9 @@ public class CounterPanel extends JPanel {
     public CounterPanel(Editor editor) {
         this.editor = editor;
         this.timerController = TimerController.FINISHED;
+        this.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
         currentSessionUpdater();
-        this.setBackground(Color.LIGHT_GRAY);
         initializeFields();
         initializeCounterLabels();
         counterUpdater();
@@ -50,6 +59,8 @@ public class CounterPanel extends JPanel {
 
     private void initializeFields() {
         cycles = 0;
+        background = editor.getBackground();
+        foreground = editor.getForeground();
         currentTimer = PossibleTimers.FOCUS;
         counterName = new JLabel();
         counterTimer = new JLabel();
@@ -59,8 +70,18 @@ public class CounterPanel extends JPanel {
 
     private void initializeCounterLabels() {
         counterUpdater();
-        this.add(counterName);
-        this.add(counterTimer);
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        this.add(counterName,gbc);
+        gbc.gridx = 3;
+        gbc.gridy = 3;
+        this.add(counterTimer,gbc);
+        counterName.setBackground(background);
+        counterName.setForeground(foreground);
+        counterName.setFont(NAME_FONT);
+        counterTimer.setBackground(background);
+        counterTimer.setForeground(foreground);
+        counterTimer.setFont(TIMER_FONT);
     }
 
     public void counterUpdater() {
@@ -135,6 +156,11 @@ public class CounterPanel extends JPanel {
         this.timerController = timerController;
     }
 
+
+    public GridBagConstraints getGbc() {
+        return gbc;
+    }
+
     private class TimerHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -157,6 +183,11 @@ public class CounterPanel extends JPanel {
 
         void timerHelper() {
             if (minutes == 0 && seconds == 0) {
+                try {
+                    playAudio();
+                } catch (IOException exception) {
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"Audio File Not Found");
+                }
                 JOptionPane.showMessageDialog(editor, "Timer Up", "Stopped", 0);
                 timerController = TimerController.FINISHED;
                 currentTimerUpdater();
@@ -169,6 +200,14 @@ public class CounterPanel extends JPanel {
             } else {
                 seconds--;
                 counterUpdater();
+            }
+        }
+
+        void playAudio() throws IOException {
+            if (currentTimer == PossibleTimers.FOCUS) {
+                new AudioComponent(PossibleTimers.FOCUS);
+            } else {
+                new AudioComponent(PossibleTimers.BREAK);
             }
         }
     }

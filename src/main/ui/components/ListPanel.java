@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class ListPanel extends JList {
     CounterPanel counterPanel;
+
     public ListPanel(DefaultListModel<FocusSession> listModel, CounterPanel counterPanel) {
         this.setModel(listModel);
         this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
