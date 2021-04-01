@@ -1,10 +1,13 @@
 package ui.components.tools;
 
 import model.FocusSession;
+import model.exceptions.SmallerThanOneException;
 import ui.Editor;
 
 import javax.swing.*;
 
+// Represents a Tool that generates a popup to collect user inputs about a selected focusSession and edit the original
+// session selected
 public class EditTool extends Tool {
     public EditTool(Editor editor, JComponent parent) {
         super(editor, parent);
@@ -42,9 +45,13 @@ public class EditTool extends Tool {
     protected void listModifier() {
         FocusSession session = editor.getCurrentSession();
         session.nameSetter(name);
-        session.intSetter("focus", focus);
-        session.intSetter("shortBreak", shortBreak);
-        session.intSetter("rest", rest);
+        try {
+            session.intSetter(FocusSession.PossibleInt.FOCUS, focus);
+            session.intSetter(FocusSession.PossibleInt.BREAK, shortBreak);
+            session.intSetter(FocusSession.PossibleInt.REST, rest);
+        } catch (SmallerThanOneException e) {
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e.getMessage());
+        }
         editor.updateListModel();
     }
 }

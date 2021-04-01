@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents a button the user can interact with to edit a session from session list
 public class EditButton extends Button {
     public EditButton(Editor editor, JComponent parent) {
         super(editor, parent);

@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+// Represents the CounterPanel that allows the user to run a counter for their respective timers
 public class CounterPanel extends JPanel {
     // Font, color, format and GridBagConstraints that define how the CounterPanel will look. Also the editor needed to
     // get some of this information

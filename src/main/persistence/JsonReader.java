@@ -2,6 +2,7 @@ package persistence;
 
 import model.FocusSession;
 import model.SessionsList;
+import model.exceptions.SmallerThanOneException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -67,7 +68,12 @@ public class JsonReader {
         int focus = jsonObject.getInt("focus");
         int shortBreak = jsonObject.getInt("shortBreak");
         int rest = jsonObject.getInt("rest");
-        FocusSession session = new FocusSession(name, focus, shortBreak, rest);
+        FocusSession session = null;
+        try {
+            session = new FocusSession(name, focus, shortBreak, rest);
+        } catch (SmallerThanOneException e) {
+            e.printStackTrace();
+        }
         sl.addSession(session);
     }
 }

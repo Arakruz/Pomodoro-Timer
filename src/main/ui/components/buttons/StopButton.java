@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents a button the user can interact with to stop the counter
 public class StopButton extends Button {
     CounterPanel counterPanel;
     GridBagConstraints gbc;

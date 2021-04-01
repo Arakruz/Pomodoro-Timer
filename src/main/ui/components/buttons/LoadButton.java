@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents a button the user can interact with to load session list from file
 public class LoadButton extends Button {
     public LoadButton(Editor editor, JComponent parent) {
         super(editor, parent);

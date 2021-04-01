@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
+// Represents a button the user can interact with to save the current session list to file
 public class SaveButton extends Button {
 
     public SaveButton(Editor editor, JComponent parent) {
