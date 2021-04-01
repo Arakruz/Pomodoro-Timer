@@ -74,3 +74,11 @@ to be implemented.
 
 - [X] As a user, I want the sessions list to be automatically loaded from file when I open the program
 
+##### Phase 4
+
+Changed the classes FocusSession and SessionsList to be more robust. In FocusSession intSetter and the constructor
+throw SmallerThanOneException if a timer is trying to be set as 0 or less. In SessionsList the method removeSession
+throws NoSessionException if no session is selected or given session is not in the list.
+
+Also, all classes in the packages "buttons" and "tools" are subclasses of the abstract classes Button and Tool 
+respectively. They override some methods and utilize fields from the appropriate abstract class.
