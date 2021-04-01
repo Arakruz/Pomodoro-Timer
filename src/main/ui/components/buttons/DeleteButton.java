@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents a button the user can interact with to delete the selected session from session list
 public class DeleteButton extends Button {
     public DeleteButton(Editor editor, JComponent parent) {
         super(editor, parent);

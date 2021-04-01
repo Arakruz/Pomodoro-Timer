@@ -2,6 +2,7 @@ package persistence;
 
 import model.FocusSession;
 import model.SessionsList;
+import model.exceptions.SmallerThanOneException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -46,11 +47,15 @@ public class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    void testWriterGeneralSessionsList() {
+    void testWriterGeneralSessionsList() { //todo add catch exception
         try {
             SessionsList sl = new SessionsList();
-            sl.addSession(new FocusSession("a", 1, 2, 3));
-            sl.addSession(new FocusSession("b", 2, 3, 4));
+            try {
+                sl.addSession(new FocusSession("a", 1, 2, 3));
+                sl.addSession(new FocusSession("b", 2, 3, 4));
+            } catch (SmallerThanOneException e) {
+                fail();
+            }
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralSessionsList.json");
             writer.open();
             writer.write(sl);

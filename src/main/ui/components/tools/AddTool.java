@@ -1,11 +1,13 @@
 package ui.components.tools;
 
 import model.FocusSession;
+import model.exceptions.SmallerThanOneException;
 import ui.Editor;
-import ui.components.tools.Tool;
 
 import javax.swing.*;
 
+// Represents a Tool that generates a popup to collect user inputs and add a new FocusSession to the SessionList based}
+// on the given input
 public class AddTool extends Tool {
     public AddTool(Editor editor, JComponent parent) {
         super(editor, parent);
@@ -39,9 +41,14 @@ public class AddTool extends Tool {
 
     @Override
     protected void listModifier() {
-        FocusSession session = new FocusSession(name, focus, shortBreak, rest);
-        editor.getSessionsList().addSession(session);
-        editor.updateListModel();
+        FocusSession session = null;
+        try {
+            session = new FocusSession(name, focus, shortBreak, rest);
+            editor.getSessionsList().addSession(session);
+            editor.updateListModel();
+        } catch (SmallerThanOneException e) {
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e.getMessage());
+        }
     }
 
 }

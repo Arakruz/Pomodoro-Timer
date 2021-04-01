@@ -1,16 +1,31 @@
 package model;
 
+import model.exceptions.SmallerThanOneException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class FocusSessionTest {
     private FocusSession testSession;
 
     @BeforeEach
     void setUp() {
-        testSession = new FocusSession("test", 30, 5, 10);
+        try {
+            testSession = new FocusSession("test", 30, 5, 10);
+        } catch (SmallerThanOneException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testConstructorException() {
+        try {
+            testSession = new FocusSession("test", 0, 0, 0);
+            fail();
+        } catch (SmallerThanOneException e) {
+        }
     }
 
     @Test
@@ -24,22 +39,63 @@ class FocusSessionTest {
     @Test
     void intSetterFocusTest() {
         // checks if the intSetter is properly working with the focus part of the function
-        testSession.intSetter("focus", 45);
+        try {
+            testSession.intSetter(FocusSession.PossibleInt.FOCUS, 45);
+        } catch (SmallerThanOneException e) {
+            fail();
+        }
         assertEquals(45, testSession.getSessionFocus());
+    }
+
+    @Test
+    void intSetterFocusTestCatchException() {
+        try {
+            testSession.intSetter(FocusSession.PossibleInt.FOCUS, 0);
+            fail();
+        } catch (SmallerThanOneException e) {
+        }
     }
 
     @Test
     void intSetterBreakTest() {
         // checks if the intSetter is properly working with the break part of the function
-        testSession.intSetter("break", 10);
+        try {
+            testSession.intSetter(FocusSession.PossibleInt.BREAK, 10);
+        } catch (SmallerThanOneException e) {
+            fail();
+        }
         assertEquals(10, testSession.getSessionBreak());
+    }
+
+    @Test
+    void intSetterBreakTestCatchException() {
+        // checks if the intSetter is properly working with the break part of the function
+        try {
+            testSession.intSetter(FocusSession.PossibleInt.BREAK, 0);
+            fail();
+        } catch (SmallerThanOneException e) {
+        }
     }
 
     @Test
     void intSetterRestTest() {
         // checks if the intSetter is properly working with the rest part of the function
-        testSession.intSetter("rest", 20);
+        try {
+            testSession.intSetter(FocusSession.PossibleInt.REST, 20);
+        } catch (SmallerThanOneException e) {
+            fail();
+        }
         assertEquals(20, testSession.getSessionRest());
+    }
+
+    @Test
+    void intSetterRestTestCatchException() {
+        // checks if the intSetter is properly working with the rest part of the function
+        try {
+            testSession.intSetter(FocusSession.PossibleInt.REST, 0);
+            fail();
+        } catch (SmallerThanOneException e) {
+        }
     }
 
     @Test

@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents a button the user can interact with to add a new session to sessionList
 public class AddButton extends Button {
     public AddButton(Editor editor, JComponent parent) {
         super(editor, parent);

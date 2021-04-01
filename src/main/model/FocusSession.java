@@ -1,23 +1,32 @@
 package model;
 
+import model.exceptions.SmallerThanOneException;
 import org.json.JSONObject;
 import persistence.Writable;
 
 // Represents a Focus Session having a duration for a Focus, break and rest timers and name of the session
 public class FocusSession implements Writable {
     private String name;         // name of this session
-    private int focus;           // Focus time in seconds
-    private int shortBreak;      // break time in seconds
-    private int rest;            // rest time in seconds
+    private int focus;           // Focus time in minutes
+    private int shortBreak;      // break time in minutes
+    private int rest;            // rest time in minutes
 
-    // REQUIRES: sessionFocus, sessionBreak and sessionRest have to be >= 0
-    // EFFECTS: name of session is set as sessionName; sessionBreak, sessionRest and sessionFocus are positive integers
+    // Represents the possible ints that can be changed on a focus session
+    public enum PossibleInt {
+        FOCUS, BREAK, REST
+    }
+
+    // EFFECTS: name of session is set as sessionName; sessionBreak, rest and focus are positive integers
     // and set to shortBreak, longBreak and focusTimer, respectively.
-    public FocusSession(String sessionName, int sessionFocus, int sessionBreak, int sessionRest) {
-        this.name = sessionName;
-        this.focus = sessionFocus;
-        this.shortBreak = sessionBreak;
-        this.rest = sessionRest;
+    public FocusSession(String sessionName, int focus, int sessionBreak, int rest) throws SmallerThanOneException {
+        if (rest <= 0 || sessionBreak <= 0 || focus <= 0) {
+            throw new SmallerThanOneException("Please input a number greater than zero for the timers");
+        } else {
+            this.name = sessionName;
+            this.focus = focus;
+            this.shortBreak = sessionBreak;
+            this.rest = rest;
+        }
     }
 
     public int getSessionBreak() {
@@ -48,17 +57,20 @@ public class FocusSession implements Writable {
         return Integer.toString(i) + " minutes | ";
     }
 
-    // REQUIRES: timerToChange has to be either one of "short","long" or "focus". Int has to be >= 0
     // MODIFIES: This
     // EFFECTS: changes the value of shortBreak, rest or focus to time based on which timerToChange string wasm use as
     //          an input, "break", "rest", "focus" respectively
-    public void intSetter(String timerToChange, int time) {
-        if (timerToChange.equals("focus")) {
-            this.focus = time;
-        } else if (timerToChange.equals("break")) {
-            this.shortBreak = time;
+    public void intSetter(PossibleInt intToChange, int time) throws SmallerThanOneException {
+        if (time <= 0) {
+            throw new SmallerThanOneException("Please input a number greater than zero for the timers");
         } else {
-            this.rest = time;
+            if (intToChange == PossibleInt.FOCUS) {
+                this.focus = time;
+            } else if (intToChange == PossibleInt.BREAK) {
+                this.shortBreak = time;
+            } else {
+                this.rest = time;
+            }
         }
     }
 

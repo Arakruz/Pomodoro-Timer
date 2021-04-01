@@ -1,6 +1,7 @@
 package model;
 
 import model.exceptions.NoSessionException;
+import model.exceptions.SmallerThanOneException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +15,12 @@ public class SessionsListTest {
     @BeforeEach
     void setUp() {
         testSessionsList = new SessionsList();
-        testSession = new FocusSession("test", 30, 5, 10);
-        danielSession = new FocusSession("Daniel", 50, 10, 30);
+        try {
+            testSession = new FocusSession("test", 30, 5, 10);
+            danielSession = new FocusSession("Daniel", 50, 10, 30);
+        } catch (SmallerThanOneException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -104,5 +109,11 @@ public class SessionsListTest {
         testSessionsList.addSession(testSession);
 
         assertNull(testSessionsList.getSessionBasedOnName("Daniel"));
+    }
+
+    @Test
+    void testGetSessions() {
+        testSessionsList.addSession(testSession);
+        assertEquals(testSession,testSessionsList.getSessions().get(0));
     }
 }

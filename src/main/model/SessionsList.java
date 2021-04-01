@@ -13,6 +13,7 @@ import java.util.List;
 public class SessionsList implements Writable {
     private List<FocusSession> sessionsList;
 
+
     // EFFECTS: constructs a list of FocusSessions
     public SessionsList() {
         this.sessionsList = new ArrayList<>();
@@ -43,11 +44,11 @@ public class SessionsList implements Writable {
         return Collections.unmodifiableList(sessionsList);
     }
 
-    // REQUIRES: sessionsList needs at least 1 item
     // MODIFIES: this
-    // EFFECTS: removes the specified FocusSession from the SessionList
+    // EFFECTS: removes the specified FocusSession from the SessionList or throws NoSessionException if no session is
+    //          found
     public void removeSession(FocusSession sessionToRemove) throws NoSessionException {
-        if (this.sessionsList.remove(sessionToRemove)) {
+        if (this.sessionsList.contains(sessionToRemove)) {
             this.sessionsList.remove(sessionToRemove);
         } else {
             throw new NoSessionException("No Session Selected");

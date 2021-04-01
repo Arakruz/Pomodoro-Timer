@@ -10,5 +10,11 @@
         "name": "Felix",
         "focus": 40,
         "shortBreak": 50
+    },
+    {
+        "rest": 1,
+        "name": "1",
+        "focus": 1,
+        "shortBreak": 1
     }
 ]}

@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents a button the user can interact with to start the counter
 public class StartButton extends Button {
     CounterPanel counterPanel;
     GridBagConstraints gbc;
