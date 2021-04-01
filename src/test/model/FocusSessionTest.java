@@ -20,6 +20,15 @@ class FocusSessionTest {
     }
 
     @Test
+    void testConstructorException() {
+        try {
+            testSession = new FocusSession("test", 0, 0, 0);
+            fail();
+        } catch (SmallerThanOneException e) {
+        }
+    }
+
+    @Test
     void testConstructor() {
         assertEquals("test", testSession.getSessionName());
         assertEquals(30, testSession.getSessionFocus());
@@ -28,7 +37,7 @@ class FocusSessionTest {
     }
 
     @Test
-    void intSetterFocusTest() { //todo add catch exception
+    void intSetterFocusTest() {
         // checks if the intSetter is properly working with the focus part of the function
         try {
             testSession.intSetter(FocusSession.PossibleInt.FOCUS, 45);
@@ -39,7 +48,16 @@ class FocusSessionTest {
     }
 
     @Test
-    void intSetterBreakTest() { //todo add catch exception
+    void intSetterFocusTestCatchException() {
+        try {
+            testSession.intSetter(FocusSession.PossibleInt.FOCUS, 0);
+            fail();
+        } catch (SmallerThanOneException e) {
+        }
+    }
+
+    @Test
+    void intSetterBreakTest() {
         // checks if the intSetter is properly working with the break part of the function
         try {
             testSession.intSetter(FocusSession.PossibleInt.BREAK, 10);
@@ -50,7 +68,17 @@ class FocusSessionTest {
     }
 
     @Test
-    void intSetterRestTest() { //todo add catch exception
+    void intSetterBreakTestCatchException() {
+        // checks if the intSetter is properly working with the break part of the function
+        try {
+            testSession.intSetter(FocusSession.PossibleInt.BREAK, 0);
+            fail();
+        } catch (SmallerThanOneException e) {
+        }
+    }
+
+    @Test
+    void intSetterRestTest() {
         // checks if the intSetter is properly working with the rest part of the function
         try {
             testSession.intSetter(FocusSession.PossibleInt.REST, 20);
@@ -58,6 +86,16 @@ class FocusSessionTest {
             fail();
         }
         assertEquals(20, testSession.getSessionRest());
+    }
+
+    @Test
+    void intSetterRestTestCatchException() {
+        // checks if the intSetter is properly working with the rest part of the function
+        try {
+            testSession.intSetter(FocusSession.PossibleInt.REST, 0);
+            fail();
+        } catch (SmallerThanOneException e) {
+        }
     }
 
     @Test

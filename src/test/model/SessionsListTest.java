@@ -110,4 +110,10 @@ public class SessionsListTest {
 
         assertNull(testSessionsList.getSessionBasedOnName("Daniel"));
     }
+
+    @Test
+    void testGetSessions() {
+        testSessionsList.addSession(testSession);
+        assertEquals(testSession,testSessionsList.getSessions().get(0));
+    }
 }
