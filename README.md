@@ -91,4 +91,3 @@ to properly follow the Liskov Substitution Principle. Another change would be ho
 interacts with other classes. It would be better to have all references to SessionsList and FocusSession basesd on the
 objects in Editor, and possibly add observers to update some of the the fields in other classes instead of maintaining 
 more complicated and restricted methods.
-
