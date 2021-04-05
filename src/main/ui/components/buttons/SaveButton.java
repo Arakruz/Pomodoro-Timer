@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 
 // Represents a button the user can interact with to save the current session list to file
 public class SaveButton extends Button {
+    JsonWriter jsonWriter;
+    SessionsList sessionsList;
 
     public SaveButton(Editor editor, JComponent parent) {
         super(editor, parent);
@@ -35,9 +37,9 @@ public class SaveButton extends Button {
         // EFFECTS: saves the SessionsList to file
         @Override
         public void actionPerformed(ActionEvent e) {
-            JsonWriter jsonWriter = editor.getJsonWriter();
+            jsonWriter = editor.getJsonWriter();
             String jsonPath = Editor.JSON_STORE;
-            SessionsList sessionsList = editor.getSessionsList();
+            sessionsList = editor.getSessionsList();
 
             try {
                 jsonWriter.open();

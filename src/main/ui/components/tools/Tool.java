@@ -1,5 +1,6 @@
 package ui.components.tools;
 
+import model.FocusSession;
 import ui.Editor;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public abstract class Tool {
     protected JPanel panel;
     protected Editor editor;
     protected JComponent parent;
+    protected FocusSession focusSession;
 
     public Tool(Editor editor, JComponent parent) {
         this.editor = editor;

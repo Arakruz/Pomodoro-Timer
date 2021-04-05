@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 
 // Represents a button the user can interact with to delete the selected session from session list
 public class DeleteButton extends Button {
+    SessionsList sessionsList;
+
     public DeleteButton(Editor editor, JComponent parent) {
         super(editor, parent);
     }
@@ -34,12 +36,10 @@ public class DeleteButton extends Button {
         // EFFECTS: deletes the selected SessionsList to file
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            currentSession = editor.getCurrentSession();
-            SessionsList sessionsList = editor.getSessionsList();
+            sessionsList = editor.getSessionsList();
 
             try {
-                sessionsList.removeSession(currentSession);
+                sessionsList.removeSession(editor.getCurrentSession());
                 editor.setSessionsList(sessionsList);
                 editor.updateListModel();
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Session deleted!");

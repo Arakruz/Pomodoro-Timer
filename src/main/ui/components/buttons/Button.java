@@ -1,9 +1,8 @@
 package ui.components.buttons;
 
-import model.FocusSession;
-import model.SessionsList;
 import persistence.JsonReader;
 import ui.Editor;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -13,8 +12,6 @@ import java.awt.*;
 public abstract class Button {
     protected JButton button;
     protected Editor editor;
-    protected SessionsList sessionsList;
-    protected FocusSession currentSession;
     protected Color background;
     protected Color foreground;
     protected JsonReader jsonReader;
@@ -24,7 +21,6 @@ public abstract class Button {
 
     public Button(Editor editor, JComponent parent) {
         this.editor = editor;
-        this.sessionsList = editor.getSessionsList();
         this.jsonReader = editor.getJsonReader();
         this.parent = parent;
         this.background = editor.getBackground();

@@ -43,12 +43,12 @@ public class EditTool extends Tool {
 
     @Override
     protected void listModifier() {
-        FocusSession session = editor.getCurrentSession();
-        session.nameSetter(name);
+        focusSession = editor.getCurrentSession();
+        focusSession.nameSetter(name);
         try {
-            session.intSetter(FocusSession.PossibleInt.FOCUS, focus);
-            session.intSetter(FocusSession.PossibleInt.BREAK, shortBreak);
-            session.intSetter(FocusSession.PossibleInt.REST, rest);
+            focusSession.intSetter(FocusSession.PossibleInt.FOCUS, focus);
+            focusSession.intSetter(FocusSession.PossibleInt.BREAK, shortBreak);
+            focusSession.intSetter(FocusSession.PossibleInt.REST, rest);
         } catch (SmallerThanOneException e) {
             JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e.getMessage());
         }

@@ -41,10 +41,9 @@ public class AddTool extends Tool {
 
     @Override
     protected void listModifier() {
-        FocusSession session = null;
         try {
-            session = new FocusSession(name, focus, shortBreak, rest);
-            editor.getSessionsList().addSession(session);
+            focusSession = new FocusSession(name, focus, shortBreak, rest);
+            editor.getSessionsList().addSession(focusSession);
             editor.updateListModel();
         } catch (SmallerThanOneException e) {
             JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e.getMessage());

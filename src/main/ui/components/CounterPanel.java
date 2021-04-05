@@ -36,6 +36,8 @@ public class CounterPanel extends JPanel {
     private int savedSeconds;
     private Timer timer;
     private TimerController timerController;
+    private StartButton startButton;
+    private StopButton stopButton;
 
     // All possible states for the counter
     public enum TimerController {
@@ -74,8 +76,8 @@ public class CounterPanel extends JPanel {
         this.currentTimer = PossibleTimers.FOCUS;
         this.counterName = new JLabel();
         this.counterTimer = new JLabel();
-        new StartButton(editor, this);
-        new StopButton(editor, this);
+        this.startButton = new StartButton(editor, this);
+        this.stopButton = new StopButton(editor, this);
     }
 
     // MODIFIES: this

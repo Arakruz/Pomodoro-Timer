@@ -7,6 +7,7 @@ import persistence.JsonWriter;
 import ui.components.CounterPanel;
 import ui.components.ListPanel;
 import ui.components.buttons.*;
+import ui.components.buttons.Button;
 
 import java.awt.*;
 import java.io.IOException;
@@ -52,6 +53,10 @@ public class Editor extends JFrame {
     private FocusSession currentSession;
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
+    private AddButton addButton;
+    private SaveButton saveButton;
+    private DeleteButton deleteButton;
+    private EditButton editButton;
 
     public Editor() {
         super("Pomodoro Timer");
@@ -148,11 +153,11 @@ public class Editor extends JFrame {
         gbc.gridy = 1;
         add(buttonPanel, gbc);
 
-        new AddButton(this, buttonPanel);
-        new SaveButton(this, buttonPanel);
+        addButton = new AddButton(this, buttonPanel);
+        saveButton = new SaveButton(this, buttonPanel);
         //new LoadButton(this, buttonPanel);
-        new DeleteButton(this, buttonPanel);
-        new EditButton(this, buttonPanel);
+        deleteButton = new DeleteButton(this, buttonPanel);
+        editButton = new EditButton(this, buttonPanel);
         return buttonPanel;
     }
 
