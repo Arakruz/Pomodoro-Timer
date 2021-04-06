@@ -22,7 +22,17 @@ class FocusSessionTest {
     @Test
     void testConstructorException() {
         try {
-            testSession = new FocusSession("test", 0, 0, 0);
+            testSession = new FocusSession("test1", 0, 1, 1);
+            fail();
+        } catch (SmallerThanOneException e) {
+        }
+        try {
+            testSession = new FocusSession("test2", 1, 0, 1);
+            fail();
+        } catch (SmallerThanOneException e) {
+        }
+        try {
+            testSession = new FocusSession("test3", 1, 1, 0);
             fail();
         } catch (SmallerThanOneException e) {
         }
