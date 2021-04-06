@@ -41,7 +41,7 @@ public class JsonWriterTest extends JsonTest {
             JsonReader reader = new JsonReader("./data/testWriterEmptySessionsList.json");
             sl = reader.read();
             assertEquals(0, sl.getSessionSize());
-        } catch (IOException e) {
+        } catch (IOException | SmallerThanOneException e) {
             fail("Exception should not have been thrown");
         }
     }
@@ -68,7 +68,7 @@ public class JsonWriterTest extends JsonTest {
             checkSession("a", 1, 2, 3, sessions.get(0));
             checkSession("b", 2, 3, 4, sessions.get(1));
 
-        } catch (IOException e) {
+        } catch (IOException | SmallerThanOneException e) {
             fail("Exception should not have been thrown");
         }
     }

@@ -2,6 +2,8 @@ package persistence;
 
 import model.FocusSession;
 import model.SessionsList;
+import model.exceptions.SmallerThanOneException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -22,6 +24,8 @@ public class JsonReaderTest extends JsonTest {
         try {
             SessionsList sl = reader.read();
             fail("IOException expected");
+        } catch (SmallerThanOneException wrongException) {
+            fail("Wrong Exception");
         } catch (IOException e) {
             // pass
         }
@@ -33,7 +37,7 @@ public class JsonReaderTest extends JsonTest {
         try {
             SessionsList sl = reader.read();
             assertEquals(0, sl.getSessionSize());
-        } catch (IOException e) {
+        } catch (IOException | SmallerThanOneException e) {
             fail("Couldn't read from file");
         }
     }
@@ -46,9 +50,20 @@ public class JsonReaderTest extends JsonTest {
             List<FocusSession> sessions = sl.getSessions();
             assertEquals(2, sessions.size());
             checkSession("a", 1, 2, 3, sessions.get(0));
-            checkSession("b", 2, 3, 4 , sessions.get(1));
-        } catch (IOException e) {
+            checkSession("b", 2, 3, 4, sessions.get(1));
+        } catch (IOException | SmallerThanOneException e) {
             fail("Couldn't read from file");
+        }
+    }
+
+    @Test
+    void testReaderCatchException() {
+        JsonReader reader = new JsonReader("./data/testReaderException.json");
+        try {
+            SessionsList sl = reader.read();
+            fail();
+        } catch (Exception e) {
+            //pass
         }
     }
 }

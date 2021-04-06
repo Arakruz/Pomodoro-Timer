@@ -2,6 +2,7 @@ package ui;
 
 import model.FocusSession;
 import model.SessionsList;
+import model.exceptions.SmallerThanOneException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.components.CounterPanel;
@@ -191,7 +192,7 @@ public class Editor extends JFrame {
         try {
             sessionsList = jsonReader.read();
             updateListModel();
-        } catch (IOException exception) {
+        } catch (IOException | SmallerThanOneException exception) {
             JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Unable to read from file: " + JSON_STORE);
         }
     }
