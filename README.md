@@ -1,5 +1,9 @@
 # Pomodoro Study Timer and Planner
 
+### This project was done for a computer science 210 course. It was effectively my first time doing a full project from
+start to finish. I might come back and add some new features and make some small changes at a later time, they will be 
+all marked on the list below with a !!! at the end.
+
 ## Project Overview
 
  **This project aims to** make an easy-to-use and highly customizable timer and planner for those trying to focus using 
@@ -74,7 +78,7 @@ to be implemented.
 
 - [X] As a user, I want the sessions list to be automatically loaded from file when I open the program
 
-## Phase 4
+## Phase 4 (part of the assignment needed for the course)
 
 ### Phase 4: Task 2
 
