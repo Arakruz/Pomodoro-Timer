@@ -47,7 +47,7 @@ public class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    void testWriterGeneralSessionsList() { //todo add catch exception
+    void testWriterGeneralSessionsList() {
         try {
             SessionsList sl = new SessionsList();
             try {
