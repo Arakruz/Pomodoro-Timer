@@ -1,20 +1,38 @@
 {"focusSessions": [
-    {
-        "rest": 50,
-        "name": "Daniel",
-        "focus": 30,
-        "shortBreak": 40
-    },
-    {
-        "rest": 20,
-        "name": "Felix",
-        "focus": 40,
-        "shortBreak": 50
-    },
-    {
-        "rest": 1,
-        "name": "1",
-        "focus": 1,
-        "shortBreak": 1
-    }
+  {
+    "rest": 10,
+    "name": "Daniel",
+    "focus": 45,
+    "shortBreak": 5
+  },
+  {
+    "rest": 15,
+    "name": "Felix",
+    "focus": 45,
+    "shortBreak": 5
+  },
+  {
+    "rest": 10,
+    "name": "Clara",
+    "focus": 30,
+    "shortBreak": 5
+  },
+  {
+    "rest": 20,
+    "name": "Monday",
+    "focus": 20,
+    "shortBreak": 10
+  },
+  {
+    "rest": 2,
+    "name": "test",
+    "focus": 2,
+    "shortBreak": 2
+  },
+  {
+    "rest": 10,
+    "name": "Friday",
+    "focus": 45,
+    "shortBreak": 5
+  }
 ]}

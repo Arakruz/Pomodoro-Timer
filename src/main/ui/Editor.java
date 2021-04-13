@@ -155,10 +155,10 @@ public class Editor extends JFrame {
         add(buttonPanel, gbc);
 
         addButton = new AddButton(this, buttonPanel);
-        saveButton = new SaveButton(this, buttonPanel);
+        editButton = new EditButton(this, buttonPanel);
         //new LoadButton(this, buttonPanel);
         deleteButton = new DeleteButton(this, buttonPanel);
-        editButton = new EditButton(this, buttonPanel);
+        saveButton = new SaveButton(this, buttonPanel);
         return buttonPanel;
     }
 

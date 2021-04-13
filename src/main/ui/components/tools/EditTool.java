@@ -44,7 +44,10 @@ public class EditTool extends Tool {
     @Override
     protected void listModifier() {
         focusSession = editor.getCurrentSession();
-        focusSession.nameSetter(name);
+        if (!name.equals("")) {
+            focusSession.nameSetter(name);
+        }
+
         try {
             focusSession.intSetter(FocusSession.PossibleInt.FOCUS, focus);
             focusSession.intSetter(FocusSession.PossibleInt.BREAK, shortBreak);
