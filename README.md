@@ -1,8 +1,6 @@
 # Pomodoro Study Timer and Planner
 
-### This project was done for a computer science 210 course. It was effectively my first time doing a full project from
-### start to finish. I might come back and add some new features and make some small changes at a later time, they will be 
-### all marked on the list below with a !!! at the end.
+### This project was done for a computer science 210 course. It was effectively my first time doing a full project from start to finish. I might come back and add some new features and make some small changes at a later time, they will be all marked on the list below with a !!! at the end.
 
 ## Project Overview
 
