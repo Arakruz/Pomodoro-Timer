@@ -5,18 +5,19 @@ import model.FocusSession;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-// Represents a ListPanel showing a sessionList based on the given listModel, also allows the user to select a specific
+// Represents a TablePanel showing a sessionList based on the given tableModel, also allows the user to select a specific
 // session
-public class ListPanel extends JList<FocusSession> {
+public class TablePanel extends JTable {
     CounterPanel counterPanel;
 
-    public ListPanel(DefaultListModel<FocusSession> listModel, CounterPanel counterPanel) {
-        this.setModel(listModel);
+    public TablePanel(DefaultTableModel tableModel, CounterPanel counterPanel) {
+        this.setModel(tableModel);
         this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.setBackground(Color.LIGHT_GRAY);
-        this.addListSelectionListener(new ListHandler());
+        this.getSelectionModel().addListSelectionListener(new ListHandler());
         this.counterPanel = counterPanel;
     }
 
